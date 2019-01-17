@@ -118,7 +118,7 @@ module.exports = (postgres) => {
          */
 
         
-        text: `SELECT * FROM items WHERE ${idToOmit ? 'WHERE ownerid <> $1' : ''}`,
+        text: `SELECT * FROM items ${idToOmit ? 'WHERE ownerid <> $1' : ''}`,
         
         values: idToOmit ? [idToOmit] : []
       });
