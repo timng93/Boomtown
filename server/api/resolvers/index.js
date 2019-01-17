@@ -87,20 +87,42 @@ module.exports = (app) => {
        *
        */
       // @TODO: Uncomment these lines after you define the User type with these fields
-      // items() {
+      async items(user, args, {pgResource}) {
+        try {
+          const userItems = await pgResource.getItemsForUser(user.id);
+          return userItems;
+        }
+        catch (e) {
+          throw new ApolloError(e);
+        }
       //   // @TODO: Replace this mock return statement with the correct items from Postgres
-      //   return []
       //   // -------------------------------
-      // },
-      // borrowed() {
+      },
+    async borrowed(user, args, {pgResource}) {
+      try{
+        const borrowedItems = await pgResource.getBorrowedItemsForUser(user.id);
+        return borrowedItems;
+      }
+      catch (e) {
+        throw new ApolloError(e);
+      }
       //   // @TODO: Replace this mock return statement with the correct items from Postgres
-      //   return []
       //   // -------------------------------
-      // }
+    }
       // -------------------------------
     },
 
     Item: {
+      async itemowner(item, args, {pgResource}) {
+
+        return{
+          id: 29,
+          fullname: "Mock user",
+          email: "mock@user.com",
+          bio: "Mock user. Remove me."
+
+        }
+      }
       /**
        *  @TODO: Advanced resolvers
        *
