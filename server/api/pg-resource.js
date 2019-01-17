@@ -157,7 +157,7 @@ module.exports = (postgres) => {
 
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: `SELECT * FROM tags WHERE id IN (SELECT tagid FROM itemtags WHERE itemid = $1) `, // @TODO: Advanced queries
+        text: `SELECT id, name AS title FROM tags WHERE id IN (SELECT tagid FROM itemtags WHERE itemid = $1) `, // @TODO: Advanced queries
         values: [id]
       };
 
