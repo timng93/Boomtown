@@ -1,5 +1,26 @@
 # Boomtown 🏙
 
+Boomtown is a web application that users can use to share items with others and lend items as they desire. 
+
+## Technologies Used In This Project
+
+Postgres
+
+Javascript
+
+GraphQL
+
+Node.JS
+
+## Author
+
+Created by : Tim Nguyen 
+
+## Learning Lessons
+
+The project was informative as I learned how to create the Postgres database from scratch. I learned how to create Queries to fetch and insert items into the Postgres Database and test the Queries using GraphQL.
+
+
 ## Server
 
 Commands must be run from the `server` directory:
