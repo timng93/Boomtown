@@ -1,11 +1,7 @@
 const strs = require('stringstream');
 
 function tagsQueryString(tags, itemid, result) {
-  /**
-   * Challenge:
-   * This function is recursive, and a little complicated.
-   * Can you refactor it to be simpler / more readable?
-   */
+  
   const length = tags.length;
   return length === 0
     ? `${result};`
@@ -23,7 +19,6 @@ module.exports = (postgres) => {
       const newUserInsert = {
         
         text: 'INSERT INTO users(fullname, email, password) VALUES($1, $2, $3) RETURNING *', // @TODO: Authentication - Server
-        
         values: [fullname, email, password]
       };
       try {
@@ -61,7 +56,7 @@ module.exports = (postgres) => {
 
       const findUserQuery = {
         
-        text: 'SELECT id, email, name AS fullname, bio FROM users WHERE id = $1', // @TODO: Basic queries
+        text: 'SELECT id, email, name AS fullname, bio FROM users WHERE id = $1', 
         
         values: [id]
 
@@ -115,13 +110,14 @@ module.exports = (postgres) => {
 
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: `SELECT id, name AS title FROM tags WHERE id IN (SELECT tagid FROM itemtags WHERE itemid = $1) `, // @TODO: Advanced queries
+        text: `SELECT id, name AS title FROM tags WHERE id IN (SELECT tagid FROM itemtags WHERE itemid = $1) `,
         values: [id]
       };
 
       const tags = await postgres.query(tagsQuery);
       return tags.rows;
     },
+
     async saveNewItem({ item, image, user }) {
 
 
@@ -164,27 +160,19 @@ module.exports = (postgres) => {
               imageStream.on('end', async () => {
                 // Image has been converted, begin saving things
                 const { title, description, tags } = item;
-
-                // Generate new Item query
-                // @TODO
-                // -------------------------------
-
-                // Insert new Item
-                // @TODO
-                // -------------------------------
+                
                 const newItemQuery = {
-                  
-                  text: 'INSERT INTO items(title, description, tags) VALUES ($1, $2, $3) RETURNING *',
-                  values: [title, description, tags]
+                  text: 'INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURNING *',
+                  values: [title, description, user.id]
                 };
-               
-              
+
+                const insertNewItem = await postgres.query(newItemQuery);
 
                 const imageUploadQuery = {
                   text:
                     'INSERT INTO uploads (itemid, filename, mimetype, encoding, data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
                   values: [
-                    // itemid,
+                    itemid,
                     image.filename,
                     image.mimetype,
                     'base64',
@@ -196,6 +184,9 @@ module.exports = (postgres) => {
                 const uploadedImage = await client.query(imageUploadQuery);
                 const imageid = uploadedImage.rows[0].id;
 
+
+               
+
                 // Generate image relation query
                 // @TODO
                 // -------------------------------
@@ -204,12 +195,20 @@ module.exports = (postgres) => {
                 // @TODO
                 // -------------------------------
 
-                // Generate tag relationships query (use the'tagsQueryString' helper function provided)
-                // @TODO
+
+
+
+
+                const tagRelationshipQuery = {
+                  text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagsQueryString([...tags], itemid, '')} RETURNING *`,
+                  values: tags.map(tag => tag.id)
+                };
+
+                const insertNewQuery = await postgres.query(tagRelationshipQuery);
+                
                 // -------------------------------
 
-                // Insert tags
-                // @TODO
+                
                 // -------------------------------
 
                 // Commit the entire transaction!
