@@ -33,11 +33,7 @@ module.exports = (app) => {
    *  Most server applications will not run unless specific values are part of their environment.
    *  Boomtown requires the following environment variables:
    *
-   *  PORT
-   *  PG_HOST
-   *  PG_USER
-   *  PG_PASSWORD
-   *  PG_DB
+   
    *  JWT_SECRET
    *
    *  And the following non-security related information should also be set for use elsewhere:

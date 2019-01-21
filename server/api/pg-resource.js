@@ -206,10 +206,7 @@ module.exports = (postgres) => {
 
                 const insertNewQuery = await postgres.query(tagRelationshipQuery);
                 
-                // -------------------------------
-
-                
-                // -------------------------------
+               
 
                 // Commit the entire transaction!
                 client.query('COMMIT', err => {
