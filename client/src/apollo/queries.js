@@ -33,9 +33,13 @@ const ItemFields = gql`
     # https://www.apollographql.com/docs/angular/features/fragments.html
   }
 `;
+
 export const ITEM_QUERY = gql`
   query item($id: ID!) {
 
+item(id: $id ) {
+       ...ItemFields
+}
     # @TODO: Query an item by its id and return the ItemFields fragment.
   }
   ${ItemFields}
@@ -50,6 +54,7 @@ export const ALL_ITEMS_QUERY = gql`
   }
   ${ItemFields}
 `;
+
 
 export const ALL_USER_ITEMS_QUERY = gql`
   query user($id: ID!) {
@@ -72,9 +77,12 @@ export const ADD_ITEM_MUTATION = gql`
   }
 `;
 
+
 /**
  * Auth-related queries and mutations.
  */
+
+ 
 
 export const VIEWER_QUERY = gql`
   query {
@@ -100,3 +108,5 @@ export const LOGIN_MUTATION = gql`
     # and return the id of the new user when the mutation is complete.
   }
 `;
+
+
