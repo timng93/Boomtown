@@ -1,7 +1,6 @@
 const strs = require('stringstream');
 
 function tagsQueryString(tags, itemid, result) {
-  
   const length = tags.length;
   return length === 0
     ? `${result};`
@@ -13,12 +12,12 @@ function tagsQueryString(tags, itemid, result) {
         );
 }
 
-module.exports = (postgres) => {
+module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        
-        text: 'INSERT INTO users(fullname, email, password) VALUES($1, $2, $3) RETURNING *', // @TODO: Authentication - Server
+        text:
+          'INSERT INTO users(fullname, email, password) VALUES($1, $2, $3) RETURNING *', // @TODO: Authentication - Server
         values: [fullname, email, password]
       };
       try {
@@ -37,9 +36,8 @@ module.exports = (postgres) => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        
         text: 'SELECT * FROM users WHERE email = $1', // @TODO: Authentication - Server
-        
+
         values: [email]
       };
       try {
@@ -51,19 +49,13 @@ module.exports = (postgres) => {
       }
     },
     async getUserById(id) {
-
-    
-
       const findUserQuery = {
-        
-        text: 'SELECT id, email, name AS fullname, bio FROM users WHERE id = $1', 
-        
-        values: [id]
+        text:
+          'SELECT id, email, name AS fullname, bio FROM users WHERE id = $1',
 
+        values: [id]
       };
 
-     
-       
       try {
         const user = await postgres.query(findUserQuery);
         if (!user) throw 'User was not found.';
@@ -72,20 +64,17 @@ module.exports = (postgres) => {
         throw 'User was not found.';
       }
     },
-     
+
     async getItems(idToOmit) {
       const items = await postgres.query({
-       
-        
         text: `SELECT * FROM items ${idToOmit ? 'WHERE ownerid <> $1' : ''}`,
-        
+
         values: idToOmit ? [idToOmit] : []
       });
       return items.rows;
     },
     async getItemsForUser(id) {
       const items = await postgres.query({
-    
         text: `SELECT * FROM items WHERE ownerid = $1`,
         values: [id]
       });
@@ -93,20 +82,19 @@ module.exports = (postgres) => {
     },
     async getBorrowedItemsForUser(id) {
       const items = await postgres.query({
-     
         text: `SELECT * FROM items WHERE borrowerid = $1`,
         values: [id]
       });
       return items.rows;
     },
-    
+
     async getTags() {
-      
-      const tags = await postgres.query({text: 'SELECT id, name AS title FROM tags'});
-      
+      const tags = await postgres.query({
+        text: 'SELECT id, name AS title FROM tags'
+      });
+
       return tags.rows;
     },
-    
 
     async getTagsForItem(id) {
       const tagsQuery = {
@@ -118,9 +106,7 @@ module.exports = (postgres) => {
       return tags.rows;
     },
 
-    async saveNewItem({ item, image, user }) {
-
-
+    async saveNewItem({ item, user }) {
       /**
        *  @TODO: Adding a New Item
        *
@@ -148,78 +134,77 @@ module.exports = (postgres) => {
         postgres.connect((err, client, done) => {
           try {
             // Begin postgres transaction
-            client.query('BEGIN', err => {
+            //Add Async since Image Async function is commented out
+            client.query('BEGIN', async err => {
               // Convert image (file stream) to Base64
-              const imageStream = image.stream.pipe(strs('base64'));
+              // const imageStream = image.stream.pipe(strs('base64'));
 
-              let base64Str = '';
-              imageStream.on('data', data => {
-                base64Str += data;
-              });
+              // let base64Str = '';
+              // imageStream.on('data', data => {
+              //   base64Str += data;
+              // });
 
-              imageStream.on('end', async () => {
-                // Image has been converted, begin saving things
-                const { title, description, tags } = item;
-                
-                const newItemQuery = {
-                  text: 'INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURNING *',
-                  values: [title, description, user.id]
-                };
+              // imageStream.on('end', async () => {
+              // Image has been converted, begin saving things
+              const { title, description, tags } = item;
 
-                const insertNewItem = await postgres.query(newItemQuery);
+              const newItemQuery = {
+                text:
+                  'INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURNING *',
+                values: [title, description, user.id]
+              };
 
-                const imageUploadQuery = {
-                  text:
-                    'INSERT INTO uploads (itemid, filename, mimetype, encoding, data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-                  values: [
-                    itemid,
-                    image.filename,
-                    image.mimetype,
-                    'base64',
-                    base64Str
-                  ]
-                };
+              const insertNewItem = await postgres.query(newItemQuery);
 
-                // Upload image
-                const uploadedImage = await client.query(imageUploadQuery);
-                const imageid = uploadedImage.rows[0].id;
+              // const imageUploadQuery = {
+              //   text:
+              //     'INSERT INTO uploads (itemid, filename, mimetype, encoding, data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+              //   values: [
+              //     itemid,
+              //     image.filename,
+              //     image.mimetype,
+              //     'base64',
+              //     base64Str
+              //   ]
+              // };
 
+              // Upload image
+              // const uploadedImage = await client.query(imageUploadQuery);
+              // const imageid = uploadedImage.rows[0].id;
 
-               
+              // Generate image relation query
+              // @TODO
+              // -------------------------------
 
-                // Generate image relation query
-                // @TODO
+              // Insert image
+              // @TODO
+              // -------------------------------
+
+              const tagRelationshipQuery = {
+                text: `INSERT INTO itemtags(tagid, itemid) VALUES ${tagsQueryString(
+                  [...tags],
+                  insertNewItem.rows[0].id,
+                  ''
+                )}`,
+                values: tags.map(tag => tag.id)
+              };
+
+              const insertNewTag = await postgres.query(tagRelationshipQuery);
+
+              // Commit the entire transaction!
+              client.query('COMMIT', err => {
+                if (err) {
+                  throw err;
+                }
+                // release the client back to the pool
+                done();
+                // Uncomment this resolve statement when you're ready!
+
+                //Apollo awaits for the promise to resolve first before carrying it out
+                resolve(insertNewItem.rows[0]);
                 // -------------------------------
-
-                // Insert image
-                // @TODO
-                // -------------------------------
-
-
-
-
-
-                const tagRelationshipQuery = {
-                  text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagsQueryString([...tags], itemid, '')} RETURNING *`,
-                  values: tags.map(tag => tag.id)
-                };
-
-                const insertNewQuery = await postgres.query(tagRelationshipQuery);
-                
-               
-
-                // Commit the entire transaction!
-                client.query('COMMIT', err => {
-                  if (err) {
-                    throw err;
-                  }
-                  // release the client back to the pool
-                  done();
-                  // Uncomment this resolve statement when you're ready!
-                  // resolve(newItem.rows[0])
-                  // -------------------------------
-                });
               });
+              //});
             });
           } catch (e) {
             // Something went wrong

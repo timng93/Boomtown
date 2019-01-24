@@ -6,6 +6,7 @@ import styles from './styles';
 import { Query } from 'react-apollo';
 import { ALL_ITEMS_QUERY } from '../../apollo/queries';
 
+
 class ItemsContainer extends Component {
   render() {
     console.log(Items);

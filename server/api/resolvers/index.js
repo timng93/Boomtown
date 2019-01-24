@@ -1,4 +1,3 @@
-
 const { ApolloError } = require('apollo-server-express');
 
 // @TODO: Uncomment these lines later when we add auth
@@ -45,7 +44,6 @@ module.exports = app => {
         } catch (e) {
           throw new ApolloError(e);
         }
-        
       },
 
       async tags(parent, args, { pgResource }, info) {
@@ -59,7 +57,6 @@ module.exports = app => {
     },
 
     User: {
-      
       async items(user, args, { pgResource }) {
         try {
           const userItems = await pgResource.getItemsForUser(user.id);
@@ -67,7 +64,6 @@ module.exports = app => {
         } catch (e) {
           throw new ApolloError(e);
         }
-      
       },
       async borrowed(user, args, { pgResource }) {
         try {
@@ -78,7 +74,6 @@ module.exports = app => {
         } catch (e) {
           throw new ApolloError(e);
         }
-       
       }
       // -------------------------------
     },
@@ -92,8 +87,7 @@ module.exports = app => {
           throw new ApolloError(e);
         }
       },
-      
-       
+
       async tags(item, args, { pgResource }) {
         try {
           const itemTags = await pgResource.getTagsForItem(item.id);
@@ -103,7 +97,6 @@ module.exports = app => {
         }
       },
 
-     
       async borrower(item, args, { pgResource }) {
         try {
           const itemBorrower = await pgResource.getUserById(item.borrowerid);
@@ -114,7 +107,7 @@ module.exports = app => {
       }
     },
 
-   /*
+    /*
      async imageurl({ imageurl, imageid, mimetype, data }) {
      if (imageurl) return imageurl
     if (imageid) {
@@ -122,7 +115,7 @@ module.exports = app => {
      }
      },
      */
-     
+
     // -------------------------------
 
     Mutation: {
@@ -130,14 +123,13 @@ module.exports = app => {
       // ...authMutations(app),
       // -------------------------------
 
-      async addItem(parent, args, {pgResource}, info) {
-        
-
-        const image = await image;
-        const user = await jwt.decode(pgResource.token, app.get('JWT_SECRET'));
+      async addItem(parent, args, { pgResource }, info) {
+        //  const image = await image;
+        // const user = await jwt.decode(pgResource.token, app.get('JWT_SECRET'));
+        const user = { id: '0'}
         const newItem = await pgResource.saveNewItem({
           item: args.item,
-          image: args.image,
+          //  image: args.image,
           user
         });
         return newItem;
