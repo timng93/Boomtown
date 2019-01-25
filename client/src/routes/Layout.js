@@ -1,14 +1,17 @@
 import React, { Fragment } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-
-import Items from '../pages/Items/Items';
-import Profile from '../pages/Profile/Profile';
-import Share from '../pages/Share/Share';
+import Home from '../pages/Home';
+import Items from '../pages/Items';
+import Profile from '../pages/Profile';
+import Share from '../pages/Share';
 
 //Add Menu Components
 export default () => (
   <Fragment>
     <Switch>
+    <Route path="/welcome" component={Home} />
+
+
     <Route path="/items" component={Items} />
     <Route path="/profile" component={Profile} />
     <Route path="/share" component={Share} />

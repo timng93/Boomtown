@@ -12,11 +12,12 @@ class ItemsContainer extends Component {
     console.log(Items);
 
     return (
-      <Query variables={{filter: 0}} query={ALL_ITEMS_QUERY}>
+      <Query query={ALL_ITEMS_QUERY}>
         {({ loading, error, data }) => {
+         
           //if (loading) return <FullScreenLoader inverted />;
           if (error) return <p>{`Error! ${error.message}`}</p>;
-          console.log(data);
+          console.log({data});
           return <Items classes={this.props.classes} items={data.items} />;
         }}
       </Query>
@@ -26,3 +27,4 @@ class ItemsContainer extends Component {
 
 //<Items classes={this.props.classes} items={data.items} />
 export default withStyles(styles)(ItemsContainer);
+
