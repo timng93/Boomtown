@@ -9,15 +9,13 @@ import { ALL_ITEMS_QUERY } from '../../apollo/queries';
 
 class ItemsContainer extends Component {
   render() {
-    console.log(Items);
-
     return (
-      <Query query={ALL_ITEMS_QUERY}>
+      <Query variables={{ filter: -1 }} query={ALL_ITEMS_QUERY}>
         {({ loading, error, data }) => {
          
-          //if (loading) return <FullScreenLoader inverted />;
+         // if (loading) return <FullScreenLoader inverted />;
           if (error) return <p>{`Error! ${error.message}`}</p>;
-          console.log({data});
+          console.log(data);
           return <Items classes={this.props.classes} items={data.items} />;
         }}
       </Query>
