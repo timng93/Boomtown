@@ -13,8 +13,11 @@ export default () => (
 
 
     <Route path="/items" component={Items} />
-    <Route path="/profile" component={Profile} />
+    <Route exact path="/profile" component={Profile} />
+    <Route exact path="/profile/:userid" component={Profile} />
+
     <Route path="/share" component={Share} />
+
     <Redirect to= "/Items"/>
     </Switch>
 

@@ -1,27 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
+import ItemsCard from '../ItemsCard/ItemsCard'
+import styles from './styles'
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  card: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-});
 
-const ItemsGrid = ({classes, data}) => {
+
+const ItemsGrid = ({classes, items}) => {
   return(
     <Grid className= {classes.grid} container spacing={24}>
-    {data.items.map((data, index) => {
+    {console.log(items)}
+    {items.map(item =>{
       return(
-        <Grid item xs={12} item={data.item} key={index} className={classes.gridItem}>
-         <Card item={data.item} key={index} className={classes.card}>xs=12</Card>
+        <Grid item xs={12} sm={6} md={4} className={classes.gridItem}>
+         <ItemsCard item = {item}/>
          </Grid>
       );
     })}
@@ -29,9 +22,12 @@ const ItemsGrid = ({classes, data}) => {
   );
 };
 
-export default withStyles(styles)(ItemsGrid);
-
 ItemsGrid.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
 };
+
+export default withStyles(styles)(ItemsGrid);
+
+
+
+

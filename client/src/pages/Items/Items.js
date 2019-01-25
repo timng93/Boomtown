@@ -1,19 +1,10 @@
-import React from 'react';
-import ItemsGrid from '../../components/ItemsGrid';
+import React, { Fragment } from 'react';
+import ItemsGrid from '../../components/ItemsGrid/ItemsGrid';
 
+const Items = ({classes, items}) => {
 
-
-const Items = ({ classes, data }) => {
-  return (
-    <div>
-      <p>
-        This is the items page located at <code>/items</code>.
-      </p>
-      <ItemsGrid />
-      
-    </div>
-  );
+  return <ItemsGrid className={classes} items={items} />
 };
 
-export default Items;
+export default (Items);
 
