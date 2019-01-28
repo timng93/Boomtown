@@ -76,14 +76,14 @@ export const ALL_USER_ITEMS_QUERY = gql`
   ${ItemFields}
 `;
 
-/*
+
 export const ALL_TAGS_QUERY = gql`
   query {
     tags {
       id
       title
     }
-    }
+    
     # @TODO: Query the id and title fields for tags.
   }
 `;
@@ -91,11 +91,23 @@ export const ALL_TAGS_QUERY = gql`
 
 export const ADD_ITEM_MUTATION = gql`
   mutation addItem($item: NewItemInput!, $image: Upload!) {
+
+    addItem(item: $item, image: $image) {
+      item{
+        id 
+        title
+        description
+      }
+      tags{
+        id
+        title
+      }
+    }
     # @TODO: Pass the item and image into the addItem mutation as arguments
     # and return the new item id when the mutation is complete.
   }
 `;
-*/
+
 
 /**
  * Auth-related queries and mutations.
