@@ -43,7 +43,7 @@ const styles = theme => ({
   };
   
   const tags = [
-    'Household Items', 'Tools', 'Electronics', 'Physical Media', 'Sporting Goods', 'Musical Instruments', 'Recreational Equipment'
+    'Household Items', 'Tools'
   ];
   
   

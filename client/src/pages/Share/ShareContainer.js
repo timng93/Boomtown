@@ -12,13 +12,14 @@ import FullScreenLoader from '../../components/FullScreenLoader/FulllScreenLoade
  import {ALL_TAGS_QUERY } from '../../apollo/queries';
  import {ADD_ITEM_MUTATION } from '../../apollo/queries';
 
-import ShareForm from "../../components/ShareItemForm/ShareItemForm";
 
 class ShareContainer extends Component {
   render() {
     return (
       <div>
       <NavBar />
+      {
+        /*
       <Mutation variables={{ filter: -1 }} mutation={ADD_ITEM_MUTATION}>
         {({ loading, error, data }) => {
          
@@ -27,6 +28,8 @@ class ShareContainer extends Component {
           return <Share classes={this.props.classes} addItem={data} />;
         }}
       </Mutation>
+      */
+      }
 
       <Query variables={{ filter: -1 }} query={ALL_TAGS_QUERY}>
         {({ loading, error, data }) => {
@@ -37,7 +40,6 @@ class ShareContainer extends Component {
         }}
       </Query>
       {/*<Share />*/}
-      <ShareForm />
       </div>
     );
   }

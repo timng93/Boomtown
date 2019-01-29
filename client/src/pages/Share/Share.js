@@ -11,15 +11,23 @@ import React from 'react';
   Hint: It should look like any other Item card.
 
 */
-// import ShareItemForm from '../../components/ShareItemForm';
-// import ShareItemPreview from '../../components/ShareItemPreview';
+ import ShareItemForm from '../../components/ShareItemForm/ShareItemForm';
+ import ShareItemPreview from '../../components/ShareItemPreview/ShareItemPreview';
+
+
+
+ 
 
 const Share = ({ classes }) => {
   return (
-    <div>
-      <p>
-        This is the share page located at <code>/share</code>.
-      </p>
+    <div className={classes.share}>
+      <div>
+      <ShareItemPreview className={classes.preview}/>
+      </div>
+      <div>
+      <ShareItemForm className={classes.form}/>
+      </div>
+     
     </div>
   );
 };
