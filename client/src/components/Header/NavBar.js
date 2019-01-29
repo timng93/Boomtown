@@ -10,20 +10,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import logo from '../../images/boomtown.svg'; // Path to your icons.svg
 import AddCircle from '@material-ui/icons/AddCircle'; 
 import MoreVert from '@material-ui/icons/MoreVert'; 
+import styles from './styles';
 
 
-const styles = {
-  root: {
-    flexGrow: 1
-  },
-  grow: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
-};
+
 
 function NavBar(props) {
   const { classes } = props;
@@ -31,18 +21,23 @@ function NavBar(props) {
     <div className={classes.appBar}>
       <AppBar position="static">
         <Toolbar>
-          <img src={logo} />
+          <img className={classes.label} src={logo} />
           <IconButton
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
           />
-
+          <div className={classes.headerBar}>
+          </div>
           <Button color="inherit">
           <AddCircle />
           Share Something
           </Button>
+          <Button 
+           style={{ borderRadius: "70%" }}
+          color="inherit">
           <MoreVert />
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

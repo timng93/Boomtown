@@ -9,24 +9,21 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import styles from './styles';
 
-
-const ItemsCard = ({ classes, item}) => {
-
+const ItemsCard = ({ classes, item }) => {
   return (
     <Card className={classes.card}>
       <Fragment>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          image={item.imageurl}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-          <h2> {item.title} </h2>
+            <h2> {item.title} </h2>
           </Typography>
           <Typography component="p">
-          <p> {item.description}</p>
-          <p> {item.tags.map(tag => tag.title)} </p>            
+            <p> {item.description}</p>
+            <p> {item.tags.map(tag => tag.title)} </p>
           </Typography>
         </CardContent>
       </Fragment>
@@ -37,10 +34,21 @@ const ItemsCard = ({ classes, item}) => {
       </CardActions>
     </Card>
   );
-}
+};
 
 ItemsCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
+};
+
+ItemsCard.defaultProps = {
+  item: {
+    imageurl: 'http://via.placeholder.com/350x250?text=Please select an image',
+    title: 'Name your item',
+    description: 'Describe your item',
+    tags: [],
+    itemowner: {},
+    created: new Date()
+  }
 };
 
 export default withStyles(styles)(ItemsCard);
