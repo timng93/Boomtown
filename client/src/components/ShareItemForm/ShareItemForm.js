@@ -55,13 +55,17 @@ class ShareItemForm extends Component {
               <Button style={{ padding: '10px 70px'}}className={classes.imageButton}>Select An Image</Button>
 
               <Field
+
                 name="name"
                 render={({ input, meta }) => {
                   console.log('Insidename', meta);
                   return (
                     <div className="field">
+
                       {/*<label for="name"> Name: </label>*/}
                       <TextField
+                         style={{ width: '270px', paddingTop: '20px' }}
+
                         inputProps={input}
                         placeholder="Name Your Item"
                       />
@@ -87,6 +91,7 @@ class ShareItemForm extends Component {
                     <div className="field">
                       {/* <label for="email"> Email: </label> */}
                       <TextField
+                         style={{ width: '270px', paddingTop: '20px' }}
                         inputProps={input}
                         placeholder="Describe Your Item"
                         multiline
@@ -119,6 +124,8 @@ class ShareItemForm extends Component {
                       Add some tags
                     </InputLabel>
                     <Select
+                     style={{ width: '270px', paddingTop: '20px' }}
+
                       className={classes.dropdownMenu}
                       multiple
                       onChange={this.handleChange}
@@ -138,9 +145,9 @@ class ShareItemForm extends Component {
                   </FormControl>
                 )}
               />
-
-
-              <Button>Share</Button>
+               <div>
+              <Button style={{ marginTop: '20px', backgroundColor: '#f9a825' }}>Share</Button>
+              </div>
             </form>
           )}
         />

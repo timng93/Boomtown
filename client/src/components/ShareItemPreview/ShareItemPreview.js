@@ -13,7 +13,7 @@ import styles from './styles';
 const ShareItemPreview = ({ classes, item}) => {
 
   return (
-    <Card className={classes.card}>
+    <Card style={{ width: '400px', marginTop: '50px' }} className={classes.card}>
       <Fragment>
       
         <CardMedia
@@ -24,10 +24,10 @@ const ShareItemPreview = ({ classes, item}) => {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-          <h2>Name your item </h2>
+          <h2 className={classes.name}>Name your item </h2>
           </Typography>
           <Typography component="p">
-          <p>Describe your item </p>
+          <p className={classes.description}>Describe your item </p>
           </Typography>
         </CardContent>
       </Fragment>
