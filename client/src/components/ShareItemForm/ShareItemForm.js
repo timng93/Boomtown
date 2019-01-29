@@ -19,11 +19,11 @@ class ShareItemForm extends Component {
     this.state = {
       checked: []
     };
-  };
+  }
 
   onSubmit(o) {
     console.log('Submitting', o);
-  };
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -40,32 +40,38 @@ class ShareItemForm extends Component {
       error.description = 'Description is required';
     }
     return error;
-  };
+  }
 
   render() {
     const { classes, tags } = this.props;
     return (
       <div>
-        <h3 style={{ fontSize: '40px', paddingBottom: '20px' }}> Share. Borrow. Prosper.</h3>
-        <Form className={classes.shareForm}
+        <h3 style={{ fontSize: '40px', paddingBottom: '20px' }}>
+          {' '}
+          Share. Borrow. Prosper.
+        </h3>
+        <Form
+          className={classes.shareForm}
           onSubmit={this.onSubmit}
           validate={this.validate}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
-              <Button style={{ padding: '10px 70px'}}className={classes.imageButton}>Select An Image</Button>
+              <Button
+                style={{ padding: '10px 70px' }}
+                className={classes.imageButton}
+              >
+                Select An Image
+              </Button>
 
               <Field
-
                 name="name"
                 render={({ input, meta }) => {
                   console.log('Insidename', meta);
                   return (
                     <div className="field">
-
                       {/*<label for="name"> Name: </label>*/}
                       <TextField
-                         style={{ width: '270px', paddingTop: '20px' }}
-
+                        style={{ width: '270px', paddingTop: '20px' }}
                         inputProps={input}
                         placeholder="Name Your Item"
                       />
@@ -91,7 +97,7 @@ class ShareItemForm extends Component {
                     <div className="field">
                       {/* <label for="email"> Email: </label> */}
                       <TextField
-                         style={{ width: '270px', paddingTop: '20px' }}
+                        style={{ width: '270px', paddingTop: '20px' }}
                         inputProps={input}
                         placeholder="Describe Your Item"
                         multiline
@@ -113,19 +119,17 @@ class ShareItemForm extends Component {
                 }}
               />
               <Field
-                 name="tags"
-                 render={({ input, meta }) => (
-
+                name="tags"
+                render={({ input, meta }) => (
                   <FormControl className={classes.form}>
-                  <InputLabel
+                    <InputLabel
                       className={classes.multipleSelect}
                       htmlFor="select-multiple-checkbox"
                     >
                       Add some tags
                     </InputLabel>
                     <Select
-                     style={{ width: '270px', paddingTop: '20px' }}
-
+                      style={{ width: '270px', paddingTop: '20px' }}
                       className={classes.dropdownMenu}
                       multiple
                       onChange={this.handleChange}
@@ -145,8 +149,12 @@ class ShareItemForm extends Component {
                   </FormControl>
                 )}
               />
-               <div>
-              <Button style={{ marginTop: '20px', backgroundColor: '#f9a825' }}>Share</Button>
+              <div>
+                <Button
+                  style={{ marginTop: '20px', backgroundColor: '#f9a825' }}
+                >
+                  Share
+                </Button>
               </div>
             </form>
           )}

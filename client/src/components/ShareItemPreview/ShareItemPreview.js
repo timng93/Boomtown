@@ -12,6 +12,13 @@ import styles from './styles';
 
 const ShareItemPreview = ({ classes, item}) => {
 
+  ShareItemPreview.defaultProps = {
+    name: 'abc',
+
+    description: 'abc'
+
+  }
+
   return (
     <Card style={{ width: '400px', marginTop: '50px' }} className={classes.card}>
       <Fragment>
