@@ -31,7 +31,7 @@ class ShareContainer extends Component {
       */
       }
 
-      <Query variables={{ filter: -1 }} query={ALL_TAGS_QUERY}>
+      <Query query={ALL_TAGS_QUERY}>
         {({ loading, error, data }) => {
          
          if (loading) return <FullScreenLoader inverted />;

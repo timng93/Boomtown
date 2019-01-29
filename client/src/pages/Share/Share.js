@@ -18,14 +18,14 @@ import React from 'react';
 
  
 
-const Share = ({ classes }) => {
+const Share = ({ classes, tags }) => {
   return (
     <div className={classes.share}>
       <div>
       <ShareItemPreview className={classes.preview}/>
       </div>
       <div>
-      <ShareItemForm className={classes.form}/>
+      <ShareItemForm className={classes.form} tags={tags}/>
       </div>
      
     </div>
