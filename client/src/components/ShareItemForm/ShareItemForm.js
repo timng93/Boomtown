@@ -20,6 +20,7 @@ import {
 } from '../../redux/modules/ShareItem';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
+import { validate } from './helpers/validation'
 
 class ShareItemForm extends Component {
   constructor(props) {
@@ -68,18 +69,6 @@ class ShareItemForm extends Component {
     this.setState({ selectedTags: event.target.value });
   };
 
-  validate(o) {
-    console.log('Validating', o);
-
-    const error = {};
-    if (!o.name) {
-      error.name = 'Name is required';
-    }
-    if (!o.description) {
-      error.description = 'Description is required';
-    }
-    return error;
-  }
 
   dispatchUpdate(values, tags, updateItem) {
     if (!values.imageurl && this.state.fileSelected) {
@@ -117,8 +106,15 @@ class ShareItemForm extends Component {
         <Form
           className={classes.shareForm}
           onSubmit={this.onSubmit}
-          validate={this.validate}
-          render={({ handleSubmit }) => (
+          validate = {values => {
+          return validate(
+            values,
+            this.state.fileSelected,
+            this.state.selectedTags,
+          );
+          }}
+            
+          render={({ handleSubmit, submitting, pristine, invalid}) => (
             <form onSubmit={handleSubmit}>
               <FormSpy
                 subscription={{ values: true }}
@@ -233,12 +229,15 @@ class ShareItemForm extends Component {
                         </MenuItem>
                       ))}
                     </Select>
+                    
                   </FormControl>
                 )}
               />
               <div>
                 <Button
                   style={{ marginTop: '20px', backgroundColor: '#f9a825' }}
+                  type="submit"
+                  disabled= {submitting || pristine || invalid}
                 >
                   Share
                 </Button>
