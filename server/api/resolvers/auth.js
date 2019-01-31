@@ -17,13 +17,16 @@ function setCookie({ tokenName, token, res }) {
    *  3) A boomtown cookie should oly be valid for 2 hours.
    */
   // Refactor this method with the correct configuration values.
-  res.cookie('boomtownToken', token, { maxAge: 1000*60*120, httpOnly: true} );
-  
+  res.cookie(tokenName, token, {
+    maxAge: 1000 * 60 * 120,
+    httpOnly: true
+  });
+
   // -------------------------------
 }
 
 function generateToken(user, secret) {
-  const { id, email, fullname, bio } = user; 
+  const { id, email, fullname, bio } = user;
   const token = jwt.sign({ id, email, fullname, bio }, secret);
   return token;
 }
@@ -42,8 +45,8 @@ module.exports = app => {
           password: hashedPassword
         });
 
-       setCookie({
-        tokenName: app.get('JWT_COOKIE_NAME'),
+        setCookie({
+          tokenName: app.get('JWT_COOKIE_NAME'),
           token: generateToken(user, app.get('JWT_SECRET')),
           res: context.req.res
         });
