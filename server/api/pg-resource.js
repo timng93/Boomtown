@@ -17,7 +17,7 @@ module.exports = postgres => {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
         text:
-          'INSERT INTO users(fullname, email, password) VALUES($1, $2, $3) RETURNING *', // @TODO: Authentication - Server
+          'INSERT INTO users( fullname, email, password) VALUES($1, $2, $3) RETURNING *', // @TODO: Authentication - Server
         values: [fullname, email, password]
       };
       try {
@@ -51,7 +51,7 @@ module.exports = postgres => {
     async getUserById(id) {
       const findUserQuery = {
         text:
-          'SELECT id, email, name AS fullname, bio FROM users WHERE id = $1',
+          'SELECT id, email, fullname, bio FROM users WHERE id = $1',
 
         values: [id]
       };
