@@ -1,27 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React, { Component } from 'react';
 
-const styles = theme => ({
-  progress: {
-    margin: theme.spacing.unit * 2,
-    
-  },
-});
+class FullScreenLoader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-function FullScreenLoader(props) {
-  const { classes } = props;
-  return (
-    <div>
-      <CircularProgress className={classes.progress} />
-      <CircularProgress className={classes.progress} color="main" />
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <p>This is the loader. </p>
+      </div>
+    );
+  }
 }
 
-FullScreenLoader.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(FullScreenLoader);
+export default FullScreenLoader; 

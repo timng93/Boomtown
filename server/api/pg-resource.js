@@ -41,26 +41,29 @@ module.exports = postgres => {
         values: [email]
       };
       try {
+        console.log('getUserAndPasswordForVerification');
         const user = await postgres.query(findUserQuery);
         if (!user) throw 'User was not found.';
         return user.rows[0];
       } catch (e) {
+        console.log(e);
         throw 'User was not found.';
       }
     },
     async getUserById(id) {
       const findUserQuery = {
-        text:
-          'SELECT id, email, fullname, bio FROM users WHERE id = $1',
+        text: 'SELECT id, email, fullname, bio FROM users WHERE id = $1',
 
         values: [id]
       };
 
       try {
+        console.log('getUserById');
         const user = await postgres.query(findUserQuery);
         if (!user) throw 'User was not found.';
         return user.rows[0];
       } catch (e) {
+        console.log('ERR', e);
         throw 'User was not found.';
       }
     },

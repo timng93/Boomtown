@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,6 +14,11 @@ import styles from './styles';
 import  MenuItem  from '@material-ui/core/MenuItem';
 import  Menu  from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import {
+  LOGOUT_MUTATION,
+  VIEWER_QUERY
+} from '../../apollo/queries';
+import { graphql, compose } from 'react-apollo';
 
 
 
@@ -90,7 +95,12 @@ class NavBar extends React.Component {
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.handleClose}>Your Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
+                  <MenuItem onClick= {e=>
+                  {e.preventDefault();
+                    this.props.logoutMutation({});
+                  }}>Log Out 
+                  
+                  </MenuItem>
            </Menu>
 
          
@@ -102,8 +112,25 @@ class NavBar extends React.Component {
 };
 }
 
+const refetchQueries = [
+  {
+    query: VIEWER_QUERY,
+  },
+];
+
+
+
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(NavBar);
+export default compose(
+  
+  graphql(LOGOUT_MUTATION, {
+    options: {
+      refetchQueries,
+    },
+    name: 'logoutMutation',
+  }),
+  withStyles(styles),
+)(NavBar);
