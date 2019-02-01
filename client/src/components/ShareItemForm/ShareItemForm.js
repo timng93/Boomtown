@@ -102,34 +102,34 @@ class ShareItemForm extends Component {
             Share. Borrow. Prosper.
           </h3>
         </Typography>
-        <Form
-          className={classes.shareForm}
-          onSubmit={this.onSubmit}
+
+        <Mutation mutation={ADD_ITEM_MUTATION}>
+        {(addItemMutation) => {
+          return ( <Form
+            onSubmit = {(values) => {
+
+              addItemMutation({
+                variables: {
+                  item: {
+                   ...values, 
+                   tags: this.state.selectedTags.map(tag => ({
+                       id: tag,
+                       title: ''
+                   }))
+                  }
+            }}
+          )
+          }}
           validate={values => {
             return validate(
-              values,
-              this.state.fileSelected,
-              this.state.selectedTags
-            );
-          }}
-          render={({ handleSubmit, submitting, pristine, invalid }) => (
-            <form onSubmit={handleSubmit}>
-              <Mutation mutation={ADD_ITEM_MUTATION}>
-                {(addItem, { loading, error }) => (
-                  <div>
-                    <form
-                      onSubmit={ (values, e ) => {
-                        e.preventDefault();
-                        addItem({
-                          variables: { ...values, tags: this.state.selectedTags}
-                        });}}
-                    >
-                    </form>
-                    {loading && <p>Loading...</p>}
-                    {error && <p>Error :( Please try again</p>}
-                  </div>
-                )}
-              </Mutation>
+               values,
+               this.state.fileSelected,
+               this.state.selectedTags
+             );
+           }}
+
+         render={({ handleSubmit, submitting, pristine, invalid }) => (
+           <form onSubmit = {handleSubmit}>
               <FormSpy
                 subscription={{ values: true }}
                 component={({ values }) => {
@@ -258,17 +258,21 @@ class ShareItemForm extends Component {
                 )}
               />
               <div>
-                <Button
-                  style={{ marginTop: '20px', backgroundColor: '#f9a825' }}
-                  type="submit"
-                  disabled={submitting || pristine || invalid}
-                >
-                  Share
-                </Button>
+              
+                 <Button
+                 style={{ marginTop: '20px', backgroundColor: '#f9a825' }}
+                 type="submit"
+                 disabled={submitting || pristine || invalid}
+               >
+                 Share
+               </Button>              
               </div>
             </form>
           )}
-        />
+          />
+          );
+        }}
+          </Mutation>  
       </div>
     );
   }

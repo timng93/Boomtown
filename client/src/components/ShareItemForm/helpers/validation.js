@@ -14,7 +14,7 @@ export const validate = (values, fileSelected, selectedTags) => {
   if (!values.description) {
     errors.description = 'Description is missing';
   }
-  if (!selectedTags) {
+  if (selectedTags.length < 1) {
     errors.selectedTags = 'Required Tags';
   }
   if (!fileSelected) {

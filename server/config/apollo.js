@@ -17,11 +17,13 @@ module.exports = ({ app, pgResource }) => {
       // @TODO: Uncomment this later when we add auth (to be added to Apollo's context)
        const tokenName = app.get("JWT_COOKIE_NAME");
        const token = req ? req.cookies[tokenName] : undefined;
+
+       console.log(token);
       // -------------------------------
 
       return {
 
-        pgResource, req
+        pgResource, req, token
         /**
          * @TODO: Provide Apollo context
          *
