@@ -107,7 +107,7 @@ class ShareItemForm extends Component {
           {addItemMutation => {
             return (
               <Form
-                onSubmit={values => {
+                onSubmit={async values => {
                   addItemMutation({
                     variables: {
                       item: {
@@ -119,10 +119,7 @@ class ShareItemForm extends Component {
                       }
                     }
                   });
-                  resetItem();
-                  this.fileInput.current.value="";
-                  this.setState({selectedTags: [] });
-                  resetImage();
+                  
                   
                 }}
                 validate={values => {
@@ -133,7 +130,16 @@ class ShareItemForm extends Component {
                   );
                 }}
                 render={({ handleSubmit, submitting, pristine, invalid, form}) => (
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={event => {
+
+                    handleSubmit(event).then(() => {
+                    this.fileInput.current.value = '';
+                    this.setState({fileSelected: false});
+                    form.reset();
+                    resetItem();
+                    this.setState({selectedTags: []});
+                    })}}>
+
                     <FormSpy
                       subscription={{ values: true }}
                       component={({ values }) => {
@@ -268,6 +274,7 @@ class ShareItemForm extends Component {
                           backgroundColor: '#f9a825'
                         }}
                         type="submit"
+                        /*
                         onClick = {()=> {
 
                           this.fileInput.current.value = '';
@@ -277,6 +284,7 @@ class ShareItemForm extends Component {
                           this.setState({selectedTags: []});
 
                         }}
+                        */
                         disabled={submitting || pristine || invalid}
                       >
                         Share

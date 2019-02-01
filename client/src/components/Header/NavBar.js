@@ -13,13 +13,35 @@ import MoreVert from '@material-ui/icons/MoreVert';
 import styles from './styles';
 import  MenuItem  from '@material-ui/core/MenuItem';
 import  Menu  from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 
 
+class NavBar extends React.Component {
 
-function NavBar(props) {
-  const { classes } = props;
+  state = {
+    auth: true,
+    anchorEl: null,
+  };
+
+  handleChange = event => {
+    this.setState({ auth: event.target.checked });
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  render() {
+    const { classes } = this.props;
+    const { auth, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
   return (
     <div className={classes.appBar}>
       <AppBar position="static">
@@ -35,26 +57,49 @@ function NavBar(props) {
           
           <div className={classes.headerBar}>
           </div>
-          <Button color="inherit">
+          <Button 
+          color="inherit"
+          href="/share">
           <AddCircle />
           Share Something
           </Button>
 
-          <Button 
-           style={{ borderRadius: "70%" }}
-          color="inherit">
-          <MoreVert />
-          </Button>
 
-          <Menu>
-            <MenuItem>Your Profile</MenuItem>
-            <MenuItem>Sign Out</MenuItem>
-          </Menu>
+
+          <IconButton
+                  aria-owns={open ? 'menu-appbar' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+         <MoreVert />
+          </IconButton>
+
+          <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleClose}>Your Profile</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
+           </Menu>
+
+         
           
         </Toolbar>
       </AppBar>
     </div>
   );
+};
 }
 
 NavBar.propTypes = {
