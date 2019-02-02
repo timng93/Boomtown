@@ -27,126 +27,190 @@ class AccountForm extends Component {
     };
   }
 
-  render() {
+  //if (this.state.formToggle) {
+    //     // @TODO: Reset the form on submit
+    //     this.props.loginMutation({
+    //       variables: {
+    //         user: {
+    //           email: values.email,
+    //           password: values.password
+    //         }
+    //       }
+    //     });
+    //   } else {
+    //     this.props.signupMutation({
+    //       variables: {
+    //         user: {
+    //           fullname: 'aa',
+    //           email: 'aa',
+    //           password: 'aa'
+    //         }
 
+  onSubmit = values => {
+     console.log(values);
+     if (this.state.formToggle) {
+         this.props.loginMutation({
+         variables: {
+          user: {
+             email: values.email,
+              password: values.password
+          }
+          }
+         });
+     } else {
+       this.props.signupMutation({
+           variables: {
+            user: {
+                fullname: values.fullname,
+            email: values.email,
+             password: values.password
+            }
+  }})
+}
+  }
+
+  render() {
     console.log(this.props);
     const { classes } = this.props;
 
-
     return (
       // @TODO: Wrap in Final Form <Form />
-      <form
-        onSubmit={() => {
-          console.log('Submitted');
-        }}
-        className={classes.accountForm}
-      >
-        {!this.state.formToggle && (
-          <FormControl fullWidth className={classes.formControl}>
-            <InputLabel htmlFor="fullname">Username</InputLabel>
-            {/* @TODO: Wrap in a Final Form <Field /> */}
-            <Input
-              id="fullname"
-              type="text"
-              inputProps={{
-                autoComplete: 'off'
-              }}
-              value={''}
-            />
-            {/* @TODO: Close Final Form <Field /> */}
-          </FormControl>
-        )}
-        <FormControl fullWidth className={classes.formControl}>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          {/* @TODO: Wrap in a Final Form <Field /> */}
-          <Input
-            id="email"
-            type="text"
-            inputProps={{
-              autoComplete: 'off'
-            }}
-            value={''}
-          />
-          {/* @TODO: Close Final Form <Field /> */}
-        </FormControl>
-        <FormControl fullWidth className={classes.formControl}>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          {/* @TODO: Wrap in a Final Form <Field /> */}
-          <Input
-            id="password"
-            type="password"
-            inputProps={{
-              autoComplete: 'off'
-            }}
-            value={''}
-          />
-          {/* @TODO: Close Final Form <Field /> */}
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
-            <Button
-              type="submit"
-              className={classes.formButton}
-              variant="contained"
-              size="large"
-              color="secondary"
-              onClick={(e) => {
 
-                e.preventDefault();
-                
-                if (this.state.formToggle) {
-                 // @TODO: Reset the form on submit
-                 this.props.loginMutation({ variables: {
-                   user: {
-                    email: "timgnguyen@gmail.com",
-                    password: "sooyeoung"
-                     
-                   }
-                 }})
-               } else {
-                 this.props.signupMutation({variables: {
-                   user: {
-                     fullname: "Timmy",
-                     email: "timgnguyen@gmail.com",
-                     password: "sooyeoung"
-                     
-                   }
-                 }})
-               }
-             }}
-              disabled={
-                false // @TODO: This prop should depend on pristine or valid state of form
-              }
-            >
-              {this.state.formToggle ? 'Enter' : 'Create Account'}
-            </Button>
-            <Typography>
-              <button
-                className={classes.formToggle}
-                type="button"
-                onClick={() => {
-                  // @TODO: Reset the form on submit
-                  this.setState({
-                    formToggle: !this.state.formToggle
-                  });
+      <Form
+        onSubmit={this.onSubmit}
+        render={({ handleSubmit, pristine, invalid, values, submitting }) => (
+          <form
+            onSubmit={handleSubmit}
+            className={classes.accountForm}
+          >
+            {!this.state.formToggle && (
+              <FormControl fullWidth className={classes.formControl}>
+                <InputLabel htmlFor="fullname">Username</InputLabel>
+                {/* @TODO: Wrap in a Final Form <Field /> */}
+                <Field name="fullname" component="input">
+                  {({ input, meta }) => {
+                    return (
+                      <div className="fullName">
+                        <Input
+                          id="fullName"
+                          type="text"
+                          inputProps={{ autoComplete: 'off' }}
+                          {...input}
+                        />
+                      </div>
+                    );
+                  }}
+                </Field>
+                {/* @TODO: Close Final Form <Field /> */}
+              </FormControl>
+            )}
+            <FormControl fullWidth className={classes.formControl}>
+              <InputLabel htmlFor="email">Email</InputLabel>
+              {/* @TODO: Wrap in a Final Form <Field /> */}
+              <Field name="email" component="input">
+                {({ input, meta }) => {
+                  return (
+                    <div className="email">
+                      <Input
+                        id="email"
+                        type="text"
+                        inputProps={{ autoComplete: 'off' }}
+                        {...input}
+                      />
+                    </div>
+                  );
                 }}
+              </Field>
+
+              {/* @TODO: Close Final Form <Field /> */}
+            </FormControl>
+            <FormControl fullWidth className={classes.formControl}>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              {/* @TODO: Wrap in a Final Form <Field /> */}
+              <Field name="password" component="input">
+                {({ input, meta }) => {
+                  return (
+                    <div className="password">
+                      <Input
+                        id="password"
+                        type="password"
+                        inputProps={{ autoComplete: 'off' }}
+                        {...input}
+                      />
+                    </div>
+                  );
+                }}
+              </Field>
+              {/* @TODO: Close Final Form <Field /> */}
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
               >
-                {this.state.formToggle
-                  ? 'Create an account.'
-                  : 'Login to existing account.'}
-              </button>
+                <Button
+                  type="submit"
+                  className={classes.formButton}
+                  variant="contained"
+                  size="large"
+                  color="secondary"
+                  // onSubmit={e => {
+                  //   e.preventDefault();
+                  //   console.log('AAAAAA');
+                  //   console.log(values);
+
+                  //   if (this.state.formToggle) {
+                  //     // @TODO: Reset the form on submit
+                  //     this.props.loginMutation({
+                  //       variables: {
+                  //         user: {
+                  //           email: values.email,
+                  //           password: values.password
+                  //         }
+                  //       }
+                  //     });
+                  //   } else {
+                  //     this.props.signupMutation({
+                  //       variables: {
+                  //         user: {
+                  //           fullname: 'aa',
+                  //           email: 'aa',
+                  //           password: 'aa'
+                  //         }
+                  //       }
+                  //     });
+                  //   }
+                  // }}
+                  disabled={ submitting||pristine||invalid}
+                >
+                  {this.state.formToggle ? 'Enter' : 'Create Account'}
+                </Button>
+                <Typography>
+                  <button
+                    className={classes.formToggle}
+                    type="button"
+                    onClick={() => {
+                      // @TODO: Reset the form on submit
+                      this.setState({
+                        formToggle: !this.state.formToggle
+                      });
+                    }}
+                  >
+                    {this.state.formToggle
+                      ? 'Create an account.'
+                      : 'Login to existing account.'}
+                  </button>
+                </Typography>
+              </Grid>
+            </FormControl>
+            <Typography className={classes.errorMessage}>
+              {/* @TODO: Display sign-up and login errors */}
             </Typography>
-          </Grid>
-        </FormControl>
-        <Typography className={classes.errorMessage}>
-          {/* @TODO: Display sign-up and login errors */}
-        </Typography>
-      </form>
+          </form>
+        )}
+      />
       // @TODO: Close Final Form <Form />
     );
   }
@@ -154,26 +218,25 @@ class AccountForm extends Component {
 
 // @TODO: Use compose to add the login and signup mutations to this components props.
 
-
 // @TODO: Refetch the VIEWER_QUERY to reload the app and access authenticated routes.
 
 const refetchQueries = [
   {
-    query: VIEWER_QUERY,
-  },
+    query: VIEWER_QUERY
+  }
 ];
 export default compose(
   graphql(SIGNUP_MUTATION, {
     options: {
-      refetchQueries,
+      refetchQueries
     },
-    name: 'signupMutation',
+    name: 'signupMutation'
   }),
   graphql(LOGIN_MUTATION, {
     options: {
-      refetchQueries,
+      refetchQueries
     },
-    name: 'loginMutation',
+    name: 'loginMutation'
   }),
-  withStyles(styles),
+  withStyles(styles)
 )(AccountForm);
