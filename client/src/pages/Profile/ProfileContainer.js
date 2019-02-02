@@ -7,7 +7,7 @@ import { Query } from 'react-apollo';
 import { ALL_USER_ITEMS_QUERY } from '../../apollo/queries';
 import NavBar from '../../components/Header/NavBar';
 
-
+//to: {profile/userid}
 class ProfileContainer extends Component {
   render() {
     const id = this.props.match.params.userid || '1';
