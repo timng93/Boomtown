@@ -73,7 +73,7 @@ class AccountForm extends Component {
 
         }}
 
-        render={({ handleSubmit, pristine, invalid, values, submitting }) => (
+        render={({ handleSubmit, pristine, invalid, values, submitting, form}) => (
           <form
             onSubmit={handleSubmit}
             className={classes.accountForm}
@@ -191,6 +191,7 @@ class AccountForm extends Component {
                       this.setState({
                         formToggle: !this.state.formToggle
                       });
+                      form.reset();
                     }}
                   >
                     {this.state.formToggle

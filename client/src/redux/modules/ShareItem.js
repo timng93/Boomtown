@@ -1,10 +1,6 @@
 const UPDATE_ITEM = 'UPDATE_ITEM';
-
 const RESET_ITEM = 'RESET_ITEM';
-
 const RESET_IMAGE = 'RESET_IMAGE';
-
-//Action Creators
 
 export const updateItem = item => ({
   type: UPDATE_ITEM,
