@@ -7,9 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 import styles from './styles';
 import { Link, withRouter } from 'react-router-dom';
-
+import Gravatar from 'react-gravatar';
 const ItemsCard = ({ classes, item }) => {
   console.log(item);
   return (
@@ -22,6 +23,11 @@ const ItemsCard = ({ classes, item }) => {
           to={`/profile/${item.itemowner.id}`}
         />
         <CardContent>
+          <Avatar ariel-label="user">
+
+            {item.itemowner && <Gravatar email={item.itemowner.email} />}
+          
+          </Avatar>
           <Typography gutterBottom variant="h5" component="h2">
             <h2> {item.title} </h2>
           </Typography>
