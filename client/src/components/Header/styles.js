@@ -3,7 +3,7 @@ const styles = theme => ({
         flexGrow: 1
     },
     label: {
-       // width: '3%'
+        width: '60%'
     }
 
 });

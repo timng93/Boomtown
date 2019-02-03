@@ -22,7 +22,7 @@ const Share = ({ classes, tags }) => {
    
     
       <div>
-        <ShareItemPreview className={classes.preview} />
+        <ShareItemPreview className={classes.preview}/>
       </div>
       <div>
         <ShareItemForm className={classes.form} tags={tags} />

@@ -5,7 +5,6 @@ import ItemsCard from '../ItemsCard/ItemsCard';
 import { connect } from 'react-redux';
 
 const ShareItemPreview = ({ shareItemPreview }) => {
-  console.log(shareItemPreview);
   return <ItemsCard item={shareItemPreview} />;
 };
 

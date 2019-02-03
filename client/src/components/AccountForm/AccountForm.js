@@ -22,7 +22,7 @@ class AccountForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formToggle: true
+      formToggle: true,
     };
   };
 
@@ -31,12 +31,6 @@ class AccountForm extends Component {
 
 
   onSubmit = async values => {
-      
-    
-
-
-    try { 
-      console.log(values);
 
       
      if (this.state.formToggle) {
@@ -60,27 +54,16 @@ class AccountForm extends Component {
 }
 }
   
-  catch(e) {
-    if (this.state.formToggle) {
-      console.log('It is not working')
-    }
-    else{
-      console.log('It is not working')
-
-    }
-  }
-}
-
 
 
   render() {
+    
     console.log(this.props);
-    const { classes } = this.props;
+    const { classes, loginMutation, signupMutation} = this.props;
 
     return (
       // @TODO: Wrap in Final Form <Form />
     
-     
   
       <Form
         onSubmit={this.onSubmit}
@@ -218,7 +201,12 @@ class AccountForm extends Component {
               </Grid>
             </FormControl>
             <Typography className={classes.errorMessage}>
-              {/* @TODO: Display sign-up and login errors */}
+            {loginMutation.error
+                ? 'Email Or Password is Incorrect.'
+                : ''}
+              {signupMutation.error
+                ? 'Account with this email already exists.'
+                : ''}
             </Typography>
           </form>
         )}

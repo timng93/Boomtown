@@ -13,6 +13,12 @@ import { Link, withRouter } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
 const ItemsCard = ({ classes, item }) => {
   console.log(item);
+  const dateCurrent = Date.now();
+  const perMinute = 1000 * 60;
+  const perHour = perMinute * 60;
+  const perDay = perHour * 24;
+  const dateDisplay = Math.round((dateCurrent - item.created) / perDay);
+
   return (
     <Card className={classes.card}>
       <Fragment>
@@ -28,12 +34,21 @@ const ItemsCard = ({ classes, item }) => {
             {item.itemowner && <Gravatar email={item.itemowner.email} />}
           
           </Avatar>
+          <Typography>
+          {item.itemowner.fullname}
+          </Typography>
+          <Typography>
+          {dateDisplay > 1
+                  ? dateDisplay + " days ago"
+                  : dateDisplay + " days ago"}
+          </Typography>
           <Typography gutterBottom variant="h5" component="h2">
             <h2> {item.title} </h2>
           </Typography>
           <Typography component="p">
-            <p> {item.description}</p>
-            <p> {item.tags.map(tag => tag.title)} </p>
+          <p> {item.tags.map(tag => tag.title)} </p>
+          <p> {item.description}</p>
+            
           </Typography>
         </CardContent>
       </Fragment>

@@ -36,9 +36,6 @@ class ShareItemForm extends Component {
     };
   }
 
-  onSubmit(o) {
-    console.log('Submitting', o);
-  }
 
   applyTags(tags) {
     return (
