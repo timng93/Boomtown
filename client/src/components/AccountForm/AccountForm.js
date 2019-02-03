@@ -4,18 +4,17 @@ import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
-
 import { Form, Field } from 'react-final-form';
-
+import {Mutation} from 'react-apollo';
 import {
   LOGIN_MUTATION,
   SIGNUP_MUTATION,
   VIEWER_QUERY
 } from '../../apollo/queries';
 import { graphql, compose } from 'react-apollo';
-import validate from './helpers/validation';
+import {validate} from './helpers/validation';
 
 import styles from './styles';
 
@@ -25,31 +24,23 @@ class AccountForm extends Component {
     this.state = {
       formToggle: true
     };
-  }
+  };
 
-  //if (this.state.formToggle) {
-    //     // @TODO: Reset the form on submit
-    //     this.props.loginMutation({
-    //       variables: {
-    //         user: {
-    //           email: values.email,
-    //           password: values.password
-    //         }
-    //       }
-    //     });
-    //   } else {
-    //     this.props.signupMutation({
-    //       variables: {
-    //         user: {
-    //           fullname: 'aa',
-    //           email: 'aa',
-    //           password: 'aa'
-    //         }
 
-  onSubmit = values => {
-     console.log(values);
+
+
+
+  onSubmit = async values => {
+      
+    
+
+
+    try { 
+      console.log(values);
+
+      
      if (this.state.formToggle) {
-         this.props.loginMutation({
+        await this.props.loginMutation({
          variables: {
           user: {
              email: values.email,
@@ -58,7 +49,7 @@ class AccountForm extends Component {
           }
          });
      } else {
-       this.props.signupMutation({
+      await  this.props.signupMutation({
            variables: {
             user: {
                 fullname: values.fullname,
@@ -67,7 +58,20 @@ class AccountForm extends Component {
             }
   }})
 }
+}
+  
+  catch(e) {
+    if (this.state.formToggle) {
+      console.log('It is not working')
+    }
+    else{
+      console.log('It is not working')
+
+    }
   }
+}
+
+
 
   render() {
     console.log(this.props);
@@ -75,9 +79,17 @@ class AccountForm extends Component {
 
     return (
       // @TODO: Wrap in Final Form <Form />
-
+    
+     
+  
       <Form
         onSubmit={this.onSubmit}
+
+        validate = {values => {
+          return validate(values, this.state.formToggle)
+
+        }}
+
         render={({ handleSubmit, pristine, invalid, values, submitting }) => (
           <form
             onSubmit={handleSubmit}
@@ -97,6 +109,15 @@ class AccountForm extends Component {
                           inputProps={{ autoComplete: 'off' }}
                           {...input}
                         />
+                        {meta.touched &&
+                              meta.invalid && (
+                                <div
+                                  className="error"
+                                  style={{ color: 'red', fontSize: '10px' }}
+                                >
+                                  {meta.error}
+                                </div>
+                              )}
                       </div>
                     );
                   }}
@@ -117,6 +138,15 @@ class AccountForm extends Component {
                         inputProps={{ autoComplete: 'off' }}
                         {...input}
                       />
+                      {meta.touched &&
+                              meta.invalid && (
+                                <div
+                                  className="error"
+                                  style={{ color: 'red', fontSize: '10px' }}
+                                >
+                                  {meta.error}
+                                </div>
+                              )}
                     </div>
                   );
                 }}
@@ -137,6 +167,15 @@ class AccountForm extends Component {
                         inputProps={{ autoComplete: 'off' }}
                         {...input}
                       />
+                      {meta.touched &&
+                              meta.invalid && (
+                                <div
+                                  className="error"
+                                  style={{ color: 'red', fontSize: '10px' }}
+                                >
+                                  {meta.error}
+                                </div>
+                              )}
                     </div>
                   );
                 }}
@@ -156,33 +195,6 @@ class AccountForm extends Component {
                   variant="contained"
                   size="large"
                   color="secondary"
-                  // onSubmit={e => {
-                  //   e.preventDefault();
-                  //   console.log('AAAAAA');
-                  //   console.log(values);
-
-                  //   if (this.state.formToggle) {
-                  //     // @TODO: Reset the form on submit
-                  //     this.props.loginMutation({
-                  //       variables: {
-                  //         user: {
-                  //           email: values.email,
-                  //           password: values.password
-                  //         }
-                  //       }
-                  //     });
-                  //   } else {
-                  //     this.props.signupMutation({
-                  //       variables: {
-                  //         user: {
-                  //           fullname: 'aa',
-                  //           email: 'aa',
-                  //           password: 'aa'
-                  //         }
-                  //       }
-                  //     });
-                  //   }
-                  // }}
                   disabled={ submitting||pristine||invalid}
                 >
                   {this.state.formToggle ? 'Enter' : 'Create Account'}
@@ -211,6 +223,13 @@ class AccountForm extends Component {
           </form>
         )}
       />
+
+      /*
+      )
+    }}
+    </Mutation>
+  </Fragment>
+  */
       // @TODO: Close Final Form <Form />
     );
   }

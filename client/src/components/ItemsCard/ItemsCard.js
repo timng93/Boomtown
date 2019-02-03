@@ -8,18 +8,18 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import styles from './styles';
-import {Link, withRouter} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const ItemsCard = ({ classes, item }) => {
+  console.log(item);
   return (
     <Card className={classes.card}>
       <Fragment>
         <CardMedia
           className={classes.media}
           image={item.imageurl}
-          component = {Link}
+          component={Link}
           to={`/profile/${item.itemowner.id}`}
-
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -44,15 +44,5 @@ ItemsCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-ItemsCard.defaultProps = {
-  item: {
-    imageurl: 'http://via.placeholder.com/350x250?text=Please select an image',
-    title: 'Name your item',
-    description: 'Describe your item',
-    tags: [],
-    itemowner: {},
-    created: new Date()
-  }
-};
 
 export default withStyles(styles)(ItemsCard);

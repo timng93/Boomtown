@@ -11,12 +11,16 @@ import React from 'react';
   Hint: It should look like any other Item card.
 
 */
+import NavBar from '../../components/Header/NavBar';
+
 import ShareItemForm from '../../components/ShareItemForm/ShareItemForm';
 import ShareItemPreview from '../../components/ShareItemPreview/ShareItemPreview';
 
 const Share = ({ classes, tags }) => {
   return (
     <div className={classes.share}>
+   
+    
       <div>
         <ShareItemPreview className={classes.preview} />
       </div>

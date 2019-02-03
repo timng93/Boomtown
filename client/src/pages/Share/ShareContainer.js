@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from '../../components/Header/NavBar';
 
 import Share from './Share';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,14 +13,11 @@ class ShareContainer extends Component {
   render() {
     return (
       <div>
-        <NavBar />
-       
-
         <Query query={ALL_TAGS_QUERY}>
           {({ loading, error, data }) => {
             if (loading) return <FullScreenLoader inverted />;
             if (error) return <p>{`Error! ${error.message}`}</p>;
-            return <Share classes={this.props.classes} tags={data.tags} />;
+            return <Share classes={this.props.classes} tags={data.tags} /> ;
           }}
         </Query>
       </div>

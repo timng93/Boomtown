@@ -10,6 +10,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import logo from '../../images/boomtown.svg'; 
 import AddCircle from '@material-ui/icons/AddCircle'; 
 import MoreVert from '@material-ui/icons/MoreVert'; 
+import Fingerprint from '@material-ui/icons/Fingerprint'; 
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
+import {Link, withRouter} from 'react-router-dom';
+import Slide from '@material-ui/core/Slide';
+
+
+
 import styles from './styles';
 import  MenuItem  from '@material-ui/core/MenuItem';
 import  Menu  from '@material-ui/core/Menu';
@@ -42,10 +49,12 @@ class NavBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+
   render() {
-    const { classes } = this.props;
+    const { classes, location } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
+   
 
   return (
     <div className={classes.appBar}>
@@ -62,12 +71,19 @@ class NavBar extends React.Component {
           
           <div className={classes.headerBar}>
           </div>
+          <Slide
+          direction= "left"
+          in={location.pathname !== '/share'}
+          mountOnEnter
+          unMountOnExit
+          >
           <Button 
           color="inherit"
           href="/share">
           <AddCircle />
           Share Something
           </Button>
+          </Slide>
 
 
 
@@ -79,6 +95,8 @@ class NavBar extends React.Component {
                 >
          <MoreVert />
           </IconButton>
+
+        
 
           <Menu
                   id="menu-appbar"
@@ -94,11 +112,20 @@ class NavBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Your Profile</MenuItem>
+                  <MenuItem onClick={this.handleClose}
+                  component = {Link}
+                  to={`/profile/${this.props.user.id}`}
+                  >
+                  <Fingerprint />
+                  Your Profile
+                  </MenuItem>
                   <MenuItem onClick= {e=>
                   {e.preventDefault();
                     this.props.logoutMutation({});
-                  }}>Log Out 
+                  }}>
+                  <PowerSettingsNew />
+                  
+                  Log Out 
                   
                   </MenuItem>
            </Menu>
@@ -132,5 +159,5 @@ export default compose(
     },
     name: 'logoutMutation',
   }),
-  withStyles(styles),
+  withStyles(styles),withRouter
 )(NavBar);

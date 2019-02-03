@@ -119,9 +119,9 @@ class ShareItemForm extends Component {
                       }
                     }
                   });
-                  
-                  
+                         
                 }}
+
                 validate={values => {
                   return validate(
                     values,
@@ -129,6 +129,7 @@ class ShareItemForm extends Component {
                     this.state.selectedTags
                   );
                 }}
+                
                 render={({ handleSubmit, submitting, pristine, invalid, form}) => (
                   <form onSubmit={event => {
 
