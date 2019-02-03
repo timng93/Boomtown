@@ -2,8 +2,6 @@ import gql from 'graphql-tag';
 
 const ItemFields = gql`
   fragment ItemFields on Item {
-    # @TODO: Create a fragment to query the following fields for an item:
-    #
     id
     title
     imageurl
@@ -75,10 +73,9 @@ export const ALL_TAGS_QUERY = gql`
 export const ADD_ITEM_MUTATION = gql`
   mutation addItem($item: NewItemInput!) {
     addItem(item: $item) {
-  
-        id
-        title
-        description
+      id
+      title
+      description
       tags {
         id
         title

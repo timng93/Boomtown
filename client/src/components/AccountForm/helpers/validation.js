@@ -1,5 +1,4 @@
-  export const validate = (values, auth) => {
-
+export const validate = (values, auth) => {
   const errors = {};
   if (!values.email || values.email === '') {
     errors.email = 'Email is required';
@@ -13,4 +12,4 @@
     errors.fullname = 'Required';
   }
   return errors;
-}
+};
