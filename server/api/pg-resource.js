@@ -136,8 +136,6 @@ module.exports = postgres => {
          */
         postgres.connect((err, client, done) => {
           try {
-            // Begin postgres transaction
-            //Add Async since Image Async function is commented out
             client.query('BEGIN', async err => {
               // Convert image (file stream) to Base64
               // const imageStream = image.stream.pipe(strs('base64'));
@@ -194,28 +192,20 @@ module.exports = postgres => {
 
               const insertNewTag = await postgres.query(tagRelationshipQuery);
 
-              // Commit the entire transaction!
               client.query('COMMIT', err => {
                 if (err) {
                   throw err;
                 }
-                // release the client back to the pool
                 done();
-                // Uncomment this resolve statement when you're ready!
 
-                //Apollo awaits for the promise to resolve first before carrying it out
                 resolve(insertNewItem.rows[0]);
-                // -------------------------------
               });
-              //});
             });
           } catch (e) {
-            // Something went wrong
             client.query('ROLLBACK', err => {
               if (err) {
                 throw err;
               }
-              // release the client back to the pool
               done();
             });
             switch (true) {

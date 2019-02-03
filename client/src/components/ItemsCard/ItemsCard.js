@@ -30,25 +30,20 @@ const ItemsCard = ({ classes, item }) => {
         />
         <CardContent>
           <Avatar ariel-label="user">
-
             {item.itemowner && <Gravatar email={item.itemowner.email} />}
-          
           </Avatar>
+          <Typography>{item.itemowner.fullname}</Typography>
           <Typography>
-          {item.itemowner.fullname}
-          </Typography>
-          <Typography>
-          {dateDisplay > 1
-                  ? dateDisplay + " days ago"
-                  : dateDisplay + " days ago"}
+            {dateDisplay > 1
+              ? dateDisplay + ' days ago'
+              : dateDisplay + ' days ago'}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2">
             <h2> {item.title} </h2>
           </Typography>
           <Typography component="p">
-          <p> {item.tags.map(tag => tag.title)} </p>
-          <p> {item.description}</p>
-            
+            <p> {item.tags.map(tag => tag.title)} </p>
+            <p> {item.description}</p>
           </Typography>
         </CardContent>
       </Fragment>
@@ -64,6 +59,5 @@ const ItemsCard = ({ classes, item }) => {
 ItemsCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
-
 
 export default withStyles(styles)(ItemsCard);
