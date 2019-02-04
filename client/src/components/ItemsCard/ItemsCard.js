@@ -1,23 +1,23 @@
 import React, { Fragment } from 'react';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardHeader
+} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import styles from './styles';
 import { Link, withRouter } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
+
 const ItemsCard = ({ classes, item }) => {
-  console.log(item);
   const dateCurrent = Date.now();
-  const perMinute = 1000 * 60;
-  const perHour = perMinute * 60;
-  const perDay = perHour * 24;
-  const dateDisplay = Math.round((dateCurrent - item.created) / perDay);
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dateDisplay = Math.round((dateCurrent - item.created) / oneDay);
 
   return (
     <Card className={classes.card}>
@@ -28,27 +28,36 @@ const ItemsCard = ({ classes, item }) => {
           component={Link}
           to={`/profile/${item.itemowner.id}`}
         />
-        <CardContent>
-          <Avatar ariel-label="user">
-            {item.itemowner && <Gravatar email={item.itemowner.email} />}
-          </Avatar>
-          <Typography>{item.itemowner.fullname}</Typography>
-          <Typography>
-            {dateDisplay > 1
+
+        <CardHeader
+          style={{ left: 32 }}
+          avatar={
+            <Gravatar
+              email={item.itemowner.email}
+              style={{ borderRadius: '50%' }}
+            />
+          }
+          title={item.itemowner.fullname}
+          subheader={
+            dateDisplay > 1
               ? dateDisplay + ' days ago'
-              : dateDisplay + ' day ago'}
+              : dateDisplay + ' day ago'
+          }
+        />
+        <CardContent>
+          <Typography component="h2" style={{fontSize: '18px', color: 'purple' }}>
+            {item.title}
           </Typography>
-          <Typography gutterBottom variant="h5" component="h2">
-            <h2> {item.title} </h2>
+          <Typography component="p" style={{color: 'blue' }}>
+            {item.tags.map(tag => tag.title).join(', ')}
           </Typography>
-          <Typography component="p">
-            <p> {item.tags.map(tag => tag.title)} </p>
-            <p> {item.description}</p>
+          <Typography component="p" style={{fontSize: '16px' }}>
+          {item.description}
           </Typography>
         </CardContent>
       </Fragment>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" variant="outlined">
           Borrow
         </Button>
       </CardActions>

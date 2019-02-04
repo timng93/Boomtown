@@ -8,13 +8,13 @@ import styles from './styles'
 
 
 const ItemsGrid = ({classes, items}) => {
+  console.log(items);
   return(
     <Grid className= {classes.grid} container spacing={24}>
-    {console.log(items)}
     {items.map(item =>{
       return(
-        <Grid item xs={12} sm={6} md={4} className={classes.gridItem}>
-         <ItemsCard item = {item}/>
+        <Grid item key={item.id} xs={12} sm={6} md={4} className={classes.gridItem}>
+         <ItemsCard item = {item} />
          </Grid>
       );
     })}

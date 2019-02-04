@@ -75,7 +75,7 @@ class NavBar extends React.Component {
           direction= "left"
           in={location.pathname !== '/share'}
           mountOnEnter
-          unMountOnExit
+          unmountOnExit
           >
           <Button 
           color="inherit"
