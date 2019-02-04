@@ -5,12 +5,12 @@ module.exports = gql`
   scalar Date
 
   enum Role {
-    VIEWER
+    LoggedInUser
   }
 
-  directive @auth(requires: Role = VIEWER) on OBJECT | FIELD_DEFINITION
+  directive @auth(requires: Role = LoggedInUser) on OBJECT | FIELD_DEFINITION
 
-  type Item @auth(requires: VIEWER) {
+  type Item @auth(requires: LoggedInUser) {
     id: ID!
     title: String!
     imageurl: String
@@ -21,7 +21,7 @@ module.exports = gql`
     borrower: User
   }
 
-  type User @auth(requires: VIEWER) {
+  type User @auth(requires: LoggedInUser) {
     id: ID!
     email: String!
     fullname: String!
@@ -30,12 +30,12 @@ module.exports = gql`
     borrowed: [Item]
   }
 
-  type Tag {
+  type Tag @auth(requires: LoggedInUser){
     id: ID!
     title: String!
   }
 
-  type File @auth(requires: VIEWER) {
+  type File @auth(requires: LoggedInUser) {
     id: ID!
     filename: String!
     encoding: String!
