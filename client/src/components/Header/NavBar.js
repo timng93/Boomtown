@@ -1,22 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import logo from '../../images/boomtown.svg';
-import AddCircle from '@material-ui/icons/AddCircle';
-import MoreVert from '@material-ui/icons/MoreVert';
-import Fingerprint from '@material-ui/icons/Fingerprint';
-import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import { Link, withRouter } from 'react-router-dom';
-import Slide from '@material-ui/core/Slide';
 import styles from './styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
 import { graphql, compose } from 'react-apollo';
+import {
+  AddCircle,
+  MoreVert,
+  Fingerprint,
+  PowerSettingsNew
+} from '@material-ui/icons';
+import {
+  withStyles,
+  AppBar,
+  Toolbar,
+  Button,
+  IconButton,
+  Slide,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
 
 class NavBar extends React.Component {
   state = {

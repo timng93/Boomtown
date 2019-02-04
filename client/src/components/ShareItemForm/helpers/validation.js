@@ -1,13 +1,6 @@
 export const validate = (values, fileSelected, selectedTags) => {
   const errors = {};
 
-  /**
-   * @TODO: Write the validation rules for the share form.
-   *
-   *
-   *
-   * An item title, description, and at least one tag is required for all items.
-   */
   if (!values.title) {
     errors.title = 'Title is missing';
   }
@@ -20,9 +13,5 @@ export const validate = (values, fileSelected, selectedTags) => {
   if (!fileSelected) {
     errors.imageurl = 'Required Image';
   }
-  //if (values.tags.length === 0) {
-  //errors.tags = " Add some tags"
-  //}
-  console.log(errors);
   return errors;
 };

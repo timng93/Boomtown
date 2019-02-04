@@ -1,24 +1,39 @@
 # Boomtown 🏙
 
-Boomtown is a web application that users can use to share items with others and lend items as they desire. 
+Boomtown is a fun place that users can go on, share and borrow items from each other. Boomtown is a place full of fun.
 
 ## Technologies Used In This Project
 
 Postgres
 
-Javascript
+Apollo- Server & Client
+
+Javascript- React and Redux Library
 
 GraphQL
 
-Node.JS
+Node.JS/ NPM 
+
+Material UI Library
 
 ## Author
 
 Created by : Tim Nguyen 
 
+## Credit
+
+Red Academy Class Project Boomtown Boiler Plate
+ 
 ## Learning Lessons
 
+Part 1- Back End Development
+
 The project was informative as I learned how to create the Postgres database from scratch. I learned how to create Queries to fetch and insert items into the Postgres Database and test the Queries using GraphQL.
+
+Part 2- Front End Development
+
+This part of the project mainly focuses on rendering items on the user interface. The focus is on using Apollo Queries to get items and user profiles on their respective pages. The project also concerns on the use of Redux to link the Form and the Preview Component on Share Item Page.
+
 
 
 ## Server

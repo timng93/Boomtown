@@ -24,7 +24,8 @@ class AuthDirective extends SchemaDirectiveVisitor {
       const field = fields[fieldName];
       const { resolve = defaultFieldResolver } = field;
       field.resolve = async function(parent, args, context, info) {
-        if( ! context.token) {
+        console.log(context.request);
+        if( ! context.token && context.request.body.operationName !== 'login' && context.request.body.operationName !=="signup" ) {
           throw ForbiddenError = 'This is not an authorized request'
         }
         { return resolve.apply(this, [parent, args, context, info]);

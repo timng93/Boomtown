@@ -1,9 +1,6 @@
 import React from 'react';
-
 import ItemsCard from '../ItemsCard/ItemsCard';
-
 import { connect } from 'react-redux';
-
 import { ViewerContext } from '../../context/ViewerProvider';
 
 const ShareItemPreview = ({ shareItemPreview }) => {

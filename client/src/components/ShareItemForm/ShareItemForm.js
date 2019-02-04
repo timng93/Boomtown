@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import PropTypes from 'prop-types';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import ListItemText from '@material-ui/core/ListItemText';
-import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import { Mutation } from 'react-apollo';
-
+import {
+  TextField,
+  Typography,
+  Button,
+  withStyles,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  ListItemText,
+  Select,
+  Checkbox
+} from '@material-ui/core';
 import {
   updateItem,
   resetImage,
   resetItem
 } from '../../redux/modules/ShareItem';
 import { connect } from 'react-redux';
-import { Typography } from '@material-ui/core';
 import { validate } from './helpers/validation';
 
 class ShareItemForm extends Component {
   constructor(props) {
     super(props);
     this.fileInput = React.createRef();
-
     this.state = {
       fileSelected: false,
       done: false,
@@ -92,7 +92,7 @@ class ShareItemForm extends Component {
     return (
       <div>
         <Typography style={{ fontSize: '40px', paddingBottom: '20px' }}>
-            Share. Borrow. Prosper.
+          Share. Borrow. Prosper.
         </Typography>
 
         <Mutation mutation={ADD_ITEM_MUTATION}>

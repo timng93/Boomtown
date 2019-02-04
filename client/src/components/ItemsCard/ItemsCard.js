@@ -45,14 +45,17 @@ const ItemsCard = ({ classes, item }) => {
           }
         />
         <CardContent>
-          <Typography component="h2" style={{fontSize: '18px', color: 'purple' }}>
+          <Typography
+            component="h2"
+            style={{ fontSize: '18px', color: 'purple' }}
+          >
             {item.title}
           </Typography>
-          <Typography component="p" style={{color: 'blue' }}>
+          <Typography component="p" style={{ color: 'blue' }}>
             {item.tags.map(tag => tag.title).join(', ')}
           </Typography>
-          <Typography component="p" style={{fontSize: '16px' }}>
-          {item.description}
+          <Typography component="p" style={{ fontSize: '16px' }}>
+            {item.description}
           </Typography>
         </CardContent>
       </Fragment>

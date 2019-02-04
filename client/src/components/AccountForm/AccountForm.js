@@ -8,7 +8,7 @@ import {
   withStyles,
   FormControl,
   Grid
-} from '@material-ui/core'
+} from '@material-ui/core';
 import {
   LOGIN_MUTATION,
   SIGNUP_MUTATION,
@@ -50,8 +50,7 @@ class AccountForm extends Component {
   };
 
   render() {
-    console.log(this.props);
-    const { classes, loginMutation, signupMutation } = this.props;
+    const { classes } = this.props;
 
     return (
       <Form
@@ -59,17 +58,13 @@ class AccountForm extends Component {
         validate={values => {
           return validate(values, this.state.formToggle);
         }}
-        render={({
-          handleSubmit,
-          pristine,
-          invalid,
-          submitting,
-          form
-        }) => (
+        render={({ handleSubmit, pristine, invalid, submitting, form }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
-                <InputLabel htmlFor="fullname" style={{ top: -8}}>Username</InputLabel>
+                <InputLabel htmlFor="fullname" style={{ top: -8 }}>
+                  Username
+                </InputLabel>
                 <Field name="fullname" component="input">
                   {({ input, meta }) => {
                     return (
@@ -84,7 +79,7 @@ class AccountForm extends Component {
                           meta.invalid && (
                             <div
                               className="error"
-                              style={{ color: 'red', fontSize: '20px'}}
+                              style={{ color: 'red', fontSize: '20px' }}
                             >
                               {meta.error}
                             </div>
@@ -96,7 +91,9 @@ class AccountForm extends Component {
               </FormControl>
             )}
             <FormControl fullWidth className={classes.formControl}>
-              <InputLabel htmlFor="email" style={{ top: -8}}>Email</InputLabel>
+              <InputLabel htmlFor="email" style={{ top: -8 }}>
+                Email
+              </InputLabel>
               <Field name="email" component="input">
                 {({ input, meta }) => {
                   return (
@@ -122,7 +119,9 @@ class AccountForm extends Component {
               </Field>
             </FormControl>
             <FormControl fullWidth className={classes.formControl}>
-              <InputLabel htmlFor="password" style={{ top: -8}}>Password</InputLabel>
+              <InputLabel htmlFor="password" style={{ top: -8 }}>
+                Password
+              </InputLabel>
               <Field name="password" component="input">
                 {({ input, meta }) => {
                   return (
@@ -183,10 +182,12 @@ class AccountForm extends Component {
               </Grid>
             </FormControl>
             <Typography className={classes.errorMessage}>
+              {/*
               {loginMutation.error ? 'Email Or Password is Incorrect.' : ''}
               {signupMutation.error
                 ? 'Account with this email already exists.'
                 : ''}
+              */}
             </Typography>
           </form>
         )}
