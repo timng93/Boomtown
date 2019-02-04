@@ -36,7 +36,7 @@ const ItemsCard = ({ classes, item }) => {
           <Typography>
             {dateDisplay > 1
               ? dateDisplay + ' days ago'
-              : dateDisplay + ' days ago'}
+              : dateDisplay + ' day ago'}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2">
             <h2> {item.title} </h2>

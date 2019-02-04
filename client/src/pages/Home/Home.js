@@ -22,12 +22,12 @@ const Home = ({ classes }) => {
           Boomtown Big Bang
         </Typography>
         <Typography variant="display4" className={classes.headline}>
-          Share. Borrow. Stay informed.
+          Share. Borrow. Have fun.
         </Typography>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
         <Typography gutterBottom variant="headline">
-        You reached home! Let's sign in.
+        You reached home! Ready for BoomTown?
         </Typography>
         <AccountForm />
       </Grid>

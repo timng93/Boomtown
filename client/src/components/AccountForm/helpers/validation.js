@@ -3,13 +3,13 @@ export const validate = (values, auth) => {
   if (!values.email || values.email === '') {
     errors.email = 'Email is required';
   } else if (/.*@.*\..*/.test(values.email) === false) {
-    errors.email = 'Please enter a valid email';
+    errors.email = 'The email format is invalid';
   }
   if (!values.password) {
-    errors.password = 'Required';
+    errors.password = 'Password is required';
   }
   if (!auth && !values.fullname) {
-    errors.fullname = 'Required';
+    errors.fullname = 'Please enter your username';
   }
   return errors;
 };
