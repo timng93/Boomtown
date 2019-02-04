@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
 
 const ItemsCard = ({ classes, item }) => {

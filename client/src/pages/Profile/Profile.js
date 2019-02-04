@@ -1,45 +1,69 @@
 import React from 'react';
 import ItemsCard from '../../components/ItemsCard/ItemsCard';
-import Grid from '@material-ui/core/Grid';
 import Gravatar from 'react-gravatar';
-import Avatar from '@material-ui/core/Avatar';
-import Paper from '@material-ui/core/Paper';
+import {
+  Typography,
+  Paper,
+  CardHeader,
+  Card,
+  Grid,
+  CardContent
+} from '@material-ui/core';
 
-
-
-
-
-
-const Profile = ({ classes, profile}) => {
+const Profile = ({ classes, profile }) => {
   return (
     <div>
-      <Paper>
-  <Avatar ariel-label="user">
+      <div>
+        <Paper className={classes.paper}>
+          <Card>
+            <CardHeader
+              className={classes.header}
+              avatar={
+                <Gravatar className={classes.avatar} email={profile.email} />
+              }
+              title={
+                <Typography className={classes.name}>
+                  {profile.fullname}
+                </Typography>
+              }
+            />
+            <CardContent>
+              <Typography component="p">
+                {profile.items.length} Items shared. {profile.borrowed.length}{' '}
+                Items borrowed.
+              </Typography>
+              <Typography component="h2">{profile.bio}</Typography>
+            </CardContent>
+          </Card>
+        </Paper>
+      </div>
 
-{ <Gravatar email={profile.email} />}
+      <div>
+        <Typography component="h1" className={classes.title}>
+          Shared Items
+        </Typography>
+      </div>
 
-</Avatar>
-    <h2>{profile.fullname}</h2>
-    
-    <p>  {profile.items.length} Items shared. {profile.borrowed.length} Items borrowed. </p>
-     
-    <p> {profile.bio} </p>
-    </Paper>
-    <Grid className= {classes.grid} container spacing={24}>
-    {console.log(profile)}
-    {profile.items.map(item =>{
-      return(
-        <Grid item xs={12} sm={6} md={4} className={classes.gridItem}>
-         <ItemsCard item = {item}/>
-         </Grid>
-      );
-    })}
-    </Grid>
+      <div>
+        <Grid className={classes.grid} container spacing={24}>
+          {profile.items.map(item => {
+            return (
+              <Grid
+                item
+                key={item.id}
+                xs={12}
+                sm={6}
+                md={4}
+                className={classes.gridItem}
+              >
+                <ItemsCard item={item} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
     </div>
-    
   );
 };
 
 export default Profile;
-
-

@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import PropTypes from 'prop-types';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -35,7 +34,6 @@ class ShareItemForm extends Component {
       selectedTags: []
     };
   }
-
 
   applyTags(tags) {
     return (
@@ -93,11 +91,8 @@ class ShareItemForm extends Component {
     const { classes, tags, updateItem, resetImage, resetItem } = this.props;
     return (
       <div>
-        <Typography>
-          <h3 style={{ fontSize: '40px', paddingBottom: '20px' }}>
-            {' '}
+        <Typography style={{ fontSize: '40px', paddingBottom: '20px' }}>
             Share. Borrow. Prosper.
-          </h3>
         </Typography>
 
         <Mutation mutation={ADD_ITEM_MUTATION}>
@@ -116,9 +111,7 @@ class ShareItemForm extends Component {
                       }
                     }
                   });
-                         
                 }}
-
                 validate={values => {
                   return validate(
                     values,
@@ -126,18 +119,24 @@ class ShareItemForm extends Component {
                     this.state.selectedTags
                   );
                 }}
-                
-                render={({ handleSubmit, submitting, pristine, invalid, form}) => (
-                  <form onSubmit={event => {
-
-                    handleSubmit(event).then(() => {
-                    this.fileInput.current.value = '';
-                    this.setState({fileSelected: false});
-                    form.reset();
-                    resetItem();
-                    this.setState({selectedTags: []});
-                    })}}>
-
+                render={({
+                  handleSubmit,
+                  submitting,
+                  pristine,
+                  invalid,
+                  form
+                }) => (
+                  <form
+                    onSubmit={event => {
+                      handleSubmit(event).then(() => {
+                        this.fileInput.current.value = '';
+                        this.setState({ fileSelected: false });
+                        form.reset();
+                        resetItem();
+                        this.setState({ selectedTags: [] });
+                      });
+                    }}
+                  >
                     <FormSpy
                       subscription={{ values: true }}
                       component={({ values }) => {
@@ -272,17 +271,6 @@ class ShareItemForm extends Component {
                           backgroundColor: '#f9a825'
                         }}
                         type="submit"
-                        /*
-                        onClick = {()=> {
-
-                          this.fileInput.current.value = '';
-                          this.setState({fileSelected: false});
-                          form.reset();
-                          resetItem();
-                          this.setState({selectedTags: []});
-
-                        }}
-                        */
                         disabled={submitting || pristine || invalid}
                       >
                         Share
