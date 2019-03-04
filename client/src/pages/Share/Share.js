@@ -1,21 +1,34 @@
-import React from 'react';
-import ShareItemForm from '../../components/ShareItemForm/ShareItemForm';
-import ShareItemPreview from '../../components/ShareItemPreview/ShareItemPreview';
-import Hidden from '@material-ui/core/Hidden';
+
+import { withStyles, Grid, Hidden } from '@material-ui/core'
+import React from 'react'
+import styles from './styles'
+import ShareItemForm from '../../components/ShareItemForm'
+import ShareItemPreview from '../../components/ShareItemPreview'
+import PropTypes from 'prop-types'
 
 const Share = ({ classes, tags }) => {
   return (
-    <div className={classes.share}>
-      <div>
-        <Hidden only="sm">
-          <ShareItemPreview className={classes.preview} />
-        </Hidden>
-      </div>
-      <div>
-        <ShareItemForm className={classes.form} tags={tags} />
-      </div>
-    </div>
-  );
-};
+    <Grid
+      container
+      direction="row"
+      justify="space-around"
+      className={classes.container}
+      spacing={8}
+    >
+      <Hidden xsDown>
+        <Grid item xs={6} className={classes.preview}>
+          <ShareItemPreview />
+        </Grid>
+      </Hidden>
+      <Grid item xs={12} sm={6} className={classes.form}>
+        <ShareItemForm tags={tags} />
+      </Grid>
+    </Grid>
+  )
+}
 
-export default Share;
+Share.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(Share)

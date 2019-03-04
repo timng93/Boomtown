@@ -47,14 +47,14 @@ const ItemsCard = ({ classes, item }) => {
         <CardContent>
           <Typography
             component="h2"
-            style={{ fontSize: '18px', color: 'purple' }}
+            style={{ fontSize: '20px', fontWeight: "520"}}
           >
             {item.title}
           </Typography>
-          <Typography component="p" style={{ color: 'blue' }}>
+          <Typography component="p" style={{ color: '#999999' }}>
             {item.tags.map(tag => tag.title).join(', ')}
           </Typography>
-          <Typography component="p" style={{ fontSize: '16px' }}>
+          <Typography component="p" style={{ fontSize: '15px' }}>
             {item.description}
           </Typography>
         </CardContent>

@@ -7,11 +7,11 @@ export const updateItem = item => ({
   payload: item
 });
 
-export const resetItem = item => ({
+export const resetItem = () => ({
   type: RESET_ITEM
 });
 
-export const resetImage = item => ({
+export const resetImage = () => ({
   type: RESET_IMAGE
 });
 

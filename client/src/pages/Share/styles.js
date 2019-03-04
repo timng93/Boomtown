@@ -1,8 +1,13 @@
 const styles = theme => ({
-  share: {
+  
+  container: {
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white',
+    height: 700,
+    paddingBottom: 200,
+    paddingLeft: 100
   }
 });
 
