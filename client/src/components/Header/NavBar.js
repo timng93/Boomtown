@@ -121,7 +121,11 @@ const refetchQueries = [
 ];
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  logoutMutation: PropTypes.func.isRequired
 };
 
 export default compose(

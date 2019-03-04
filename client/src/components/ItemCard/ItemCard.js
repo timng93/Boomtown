@@ -62,7 +62,8 @@ const ItemCard = ({ classes, item }) => {
 };
 
 ItemCard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ItemCard);

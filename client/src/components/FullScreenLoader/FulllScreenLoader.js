@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import {Typography, withStyles, CircularProgress} from '@material-ui/core'
+import { Typography, withStyles, CircularProgress } from '@material-ui/core';
 
 class FullScreenLoader extends Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class FullScreenLoader extends Component {
 }
 
 FullScreenLoader.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  inverted: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(FullScreenLoader);

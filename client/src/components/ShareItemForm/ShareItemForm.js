@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
 import styles from './styles';
-import PropTypes from 'prop-types';
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import { Mutation } from 'react-apollo';
 import {
@@ -23,6 +22,7 @@ import {
 } from '../../redux/modules/ShareItem';
 import { connect } from 'react-redux';
 import { validate } from './helpers/validation';
+import PropTypes from 'prop-types';
 
 class ShareItemForm extends Component {
   constructor(props) {
@@ -289,10 +289,6 @@ class ShareItemForm extends Component {
   }
 }
 
-ShareItemForm.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
 const mapDispatchToProps = dispatch => ({
   updateItem(item) {
     dispatch(updateItem(item));
@@ -304,6 +300,15 @@ const mapDispatchToProps = dispatch => ({
     dispatch(resetImage());
   }
 });
+
+ShareItemForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
+  updateItem: PropTypes.func.isRequired,
+  resetItem: PropTypes.func.isRequired,
+  resetImage: PropTypes.func.isRequired
+};
+
 export default connect(
   null,
   mapDispatchToProps
