@@ -5,6 +5,7 @@ import styles from './styles';
 import FullScreenLoader from '../../components/FullScreenLoader/FulllScreenLoader';
 import { Query } from 'react-apollo';
 import { ALL_ITEMS_QUERY } from '../../apollo/queries';
+import PropTypes from 'prop-types';
 
 class ItemsContainer extends Component {
   render() {
@@ -21,5 +22,12 @@ class ItemsContainer extends Component {
     );
   }
 }
+
+ItemsContainer.propTypes = {
+  classes: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(ItemsContainer);

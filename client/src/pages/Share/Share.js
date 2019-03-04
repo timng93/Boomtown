@@ -1,10 +1,9 @@
-
-import { withStyles, Grid, Hidden } from '@material-ui/core'
-import React from 'react'
-import styles from './styles'
-import ShareItemForm from '../../components/ShareItemForm'
-import ShareItemPreview from '../../components/ShareItemPreview'
-import PropTypes from 'prop-types'
+import { withStyles, Grid, Hidden } from '@material-ui/core';
+import React from 'react';
+import styles from './styles';
+import ShareItemForm from '../../components/ShareItemForm';
+import ShareItemPreview from '../../components/ShareItemPreview';
+import PropTypes from 'prop-types';
 
 const Share = ({ classes, tags }) => {
   return (
@@ -24,11 +23,12 @@ const Share = ({ classes, tags }) => {
         <ShareItemForm tags={tags} />
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 Share.propTypes = {
-  classes: PropTypes.object.isRequired
-}
+  classes: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired
+};
 
-export default withStyles(styles)(Share)
+export default withStyles(styles)(Share);

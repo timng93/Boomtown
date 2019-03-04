@@ -1,5 +1,5 @@
 import React from 'react';
-import ItemsCard from '../../components/ItemsCard/ItemsCard';
+import ItemCard from '../../components/ItemCard/ItemCard';
 import Gravatar from 'react-gravatar';
 import {
   Typography,
@@ -9,6 +9,7 @@ import {
   Grid,
   CardContent
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const Profile = ({ classes, profile }) => {
   return (
@@ -29,7 +30,14 @@ const Profile = ({ classes, profile }) => {
             />
             <CardContent>
               <Typography component="p">
-                {profile.items.length} Items shared. {profile.borrowed.length}{' '}
+                <span style={{ fontWeight: '800' }}>
+                  {' '}
+                  {profile.items.length}{' '}
+                </span>{' '}
+                Items shared.{' '}
+                <span style={{ fontWeight: '800' }}>
+                  {profile.borrowed.length}
+                </span>{' '}
                 Items borrowed.
               </Typography>
               <Typography component="h2">{profile.bio}</Typography>
@@ -56,7 +64,7 @@ const Profile = ({ classes, profile }) => {
                 md={4}
                 className={classes.gridItem}
               >
-                <ItemsCard item={item} />
+                <ItemCard item={item} />
               </Grid>
             );
           })}
@@ -64,6 +72,11 @@ const Profile = ({ classes, profile }) => {
       </div>
     </div>
   );
+};
+
+Profile.propTypes = {
+  classes: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 export default Profile;

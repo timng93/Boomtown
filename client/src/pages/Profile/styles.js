@@ -16,6 +16,9 @@ const styles = theme => ({
   },
   name: {
     fontSize: '22px'
+  },
+  itemAmount: {
+    
   }
 });
 

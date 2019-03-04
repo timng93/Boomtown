@@ -91,7 +91,9 @@ class ShareItemForm extends Component {
     const { classes, tags, updateItem, resetImage, resetItem } = this.props;
     return (
       <div>
-        <Typography style={{ fontSize: '40px', paddingBottom: '20px' }}>
+        <Typography
+          style={{ fontSize: '40px', paddingBottom: '20px', fontWeight: '900' }}
+        >
           Share. Borrow. Prosper.
         </Typography>
 

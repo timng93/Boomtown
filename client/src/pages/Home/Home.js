@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AccountForm from '../../components/AccountForm';
-
+import PropTypes from 'prop-types';
 
 const Home = ({ classes }) => {
   return (
@@ -27,12 +27,16 @@ const Home = ({ classes }) => {
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
         <Typography gutterBottom variant="headline">
-        You reached home! Ready for BoomTown?
+          You reached home! Ready for BoomTown?
         </Typography>
         <AccountForm />
       </Grid>
     </Grid>
   );
+};
+
+Home.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
 export default Home;

@@ -13,12 +13,9 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import { Link } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
+import moment from 'moment';
 
-const ItemsCard = ({ classes, item }) => {
-  const dateCurrent = Date.now();
-  const oneDay = 1000 * 60 * 60 * 24;
-  const dateDisplay = Math.round((dateCurrent - item.created) / oneDay);
-
+const ItemCard = ({ classes, item }) => {
   return (
     <Card className={classes.card}>
       <Fragment>
@@ -38,16 +35,12 @@ const ItemsCard = ({ classes, item }) => {
             />
           }
           title={item.itemowner.fullname}
-          subheader={
-            dateDisplay > 1
-              ? dateDisplay + ' days ago'
-              : dateDisplay + ' day ago'
-          }
+          subheader={moment(item.created).fromNow()}
         />
         <CardContent>
           <Typography
             component="h2"
-            style={{ fontSize: '20px', fontWeight: "520"}}
+            style={{ fontSize: '20px', fontWeight: '520' }}
           >
             {item.title}
           </Typography>
@@ -68,8 +61,8 @@ const ItemsCard = ({ classes, item }) => {
   );
 };
 
-ItemsCard.propTypes = {
+ItemCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ItemsCard);
+export default withStyles(styles)(ItemCard);

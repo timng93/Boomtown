@@ -1,6 +1,6 @@
 # Boomtown 🏙
 
-Boomtown is a fun place that users can go on, share and borrow items from each other. Boomtown is a place full of fun.
+Boomtown is a web app that you can go on to share items and borrow items as you please. On your profile page, you can see items that you have shared with others. As you upload your item, you can classify the items and add tags to your items so it is easy for people to understand. 
 
 ## Screenshots
 
@@ -11,10 +11,6 @@ Boomtown is a fun place that users can go on, share and borrow items from each o
 ### Main Item Page
 
 <img src="./screenshots/boomtown-items.png" width="1200" height="600">
-
-### Profile Page
-
-<img src="./screenshots/boomtown-profile.png" width="1200" height="600">
 
 ## Technologies Used In This Project
 
