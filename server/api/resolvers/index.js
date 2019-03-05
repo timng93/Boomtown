@@ -6,7 +6,7 @@ const { UploadScalar, DateScalar } = require('../custom-types');
 
 module.exports = app => {
   return {
-    Upload: UploadScalar,
+    // Upload: UploadScalar,
     Date: DateScalar,
 
     Query: {

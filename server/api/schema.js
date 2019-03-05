@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  scalar Upload
+  # scalar Upload
   scalar Date
 
   enum Role {
@@ -30,7 +30,7 @@ module.exports = gql`
     borrowed: [Item]
   }
 
-  type Tag @auth(requires: LoggedInUser){
+  type Tag @auth(requires: LoggedInUser) {
     id: ID!
     title: String!
   }
@@ -77,7 +77,7 @@ module.exports = gql`
   }
 
   type Mutation {
-    addItem(item: NewItemInput!, image: Upload): Item
+    addItem(item: NewItemInput!, image: String): Item
     signup(user: NewUser!): ID!
     login(user: Login!): ID!
     logout: Boolean
