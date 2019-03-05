@@ -18,6 +18,7 @@ import { graphql, compose } from 'react-apollo';
 import { validate } from './helpers/validation';
 import styles from './styles';
 import PropTypes from 'prop-types';
+import { FORM_ERROR } from 'final-form';
 
 class AccountForm extends Component {
   constructor(props) {
@@ -28,25 +29,19 @@ class AccountForm extends Component {
   }
 
   onSubmit = async values => {
-    if (this.state.formToggle) {
-      await this.props.loginMutation({
-        variables: {
-          user: {
-            email: values.email,
-            password: values.password
-          }
-        }
-      });
-    } else {
-      await this.props.signupMutation({
-        variables: {
-          user: {
-            fullname: values.fullname,
-            email: values.email,
-            password: values.password
-          }
-        }
-      });
+    const variables = {
+      user: values
+    };
+    try {
+      this.state.formToggle
+        ? await this.props.loginMutation({ variables })
+        : await this.props.signupMutation({ variables });
+    } catch (e) {
+      return {
+        [FORM_ERROR]: this.state.formToggle
+          ? 'Incorrect email and/or password'
+          : 'An account with this email already exists. Try again with a different email'
+      };
     }
   };
 
@@ -59,7 +54,15 @@ class AccountForm extends Component {
         validate={values => {
           return validate(values, this.state.formToggle);
         }}
-        render={({ handleSubmit, pristine, invalid, submitting, form }) => (
+        render={({
+          handleSubmit,
+          pristine,
+          invalid,
+          submitting,
+          form,
+          hasSubmitErrors,
+          submitError
+        }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
@@ -182,14 +185,11 @@ class AccountForm extends Component {
                 </Typography>
               </Grid>
             </FormControl>
-            <Typography className={classes.errorMessage}>
-              {/*
-              {loginMutation.error ? 'Email Or Password is Incorrect.' : ''}
-              {signupMutation.error
-                ? 'Account with this email already exists.'
-                : ''}
-              */}
-            </Typography>
+            {hasSubmitErrors && (
+              <Typography className={classes.errorMessage}>
+                {submitError}
+              </Typography>
+            )}
           </form>
         )}
       />
